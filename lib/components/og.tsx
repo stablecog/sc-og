@@ -45,9 +45,10 @@ export default function OG({
       tw="flex w-full h-full items-center justify-center"
     >
       <div
-        tw="h-full flex items-center justify-center rounded-2xl relative"
+        tw="h-full flex justify-center items-center rounded-2xl"
         style={{
           overflow: "hidden",
+          position: "relative",
           width: imageContainerWidth,
           height: imageContainerHeight,
           borderColor: bgSecondaryColor,
@@ -55,7 +56,11 @@ export default function OG({
           borderStyle: "solid",
         }}
       >
-        <img src={imageUrl} width={imageWidth} height={imageHeight} />
+        <img
+          src={imageUrl}
+          width={generation.width}
+          height={generation.height}
+        />
       </div>
       <div
         style={{
