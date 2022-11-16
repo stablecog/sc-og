@@ -2,15 +2,15 @@ import { TDBGenerationG } from "../ts/helpers/getGenerationG";
 
 export default function OG({
   generation,
-  height,
   width,
+  height,
 }: {
   generation: TDBGenerationG;
-  height: number;
   width: number;
+  height: number;
 }) {
-  const imageUrl = `https://ik.imagekit.io/stablecog/tr:f-jpg/${generation.image_id}.webp`;
-  const maxPromptLength = 140;
+  const imageUrl = `${process.env.PUBLIC_IMAGEKIT_URL}/tr:f-jpg/${generation.image_id}.webp`;
+  const maxPromptLength = 130;
   const padding = 24;
   let imageWidth: number;
   let imageHeight: number;
@@ -45,10 +45,9 @@ export default function OG({
       tw="flex w-full h-full items-center justify-center"
     >
       <div
-        tw="h-full flex justify-center items-center rounded-2xl"
+        tw="flex justify-center items-center rounded-2xl"
         style={{
           overflow: "hidden",
-          position: "relative",
           width: imageContainerWidth,
           height: imageContainerHeight,
           borderColor: bgSecondaryColor,
@@ -57,9 +56,9 @@ export default function OG({
         }}
       >
         <img
+          width={imageWidth.toString()}
+          height={imageHeight.toString()}
           src={imageUrl}
-          width={generation.width}
-          height={generation.height}
         />
       </div>
       <div
@@ -75,9 +74,9 @@ export default function OG({
           <div tw="w-full flex items-center">
             <svg
               style={{
-                width: 64,
-                height: 64,
-                marginLeft: 8,
+                width: 72,
+                height: 72,
+                marginLeft: -8,
               }}
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -171,9 +170,9 @@ export default function OG({
           </div>
           <p
             style={{
-              lineHeight: 32,
+              lineHeight: 1.35,
             }}
-            tw="w-full text-3xl opacity-75 mt-6 overflow-hidden"
+            tw="w-full text-3xl opacity-75 mt-4 overflow-hidden"
           >
             {generation.prompt.text.slice(0, maxPromptLength)}
             {generation.prompt.text.length > maxPromptLength ? "..." : ""}

@@ -14,10 +14,10 @@ const jbMono400 = fetch(
   new URL("../../../../public/fonts/jetbrains-mono-400.ttf", import.meta.url)
 ).then((res) => res.arrayBuffer());
 const jbMono700 = fetch(
-  new URL("../../../../public/fonts/jetbrains-mono-400.ttf", import.meta.url)
+  new URL("../../../../public/fonts/jetbrains-mono-700.ttf", import.meta.url)
 ).then((res) => res.arrayBuffer());
 const jbMono800 = fetch(
-  new URL("../../../../public/fonts/jetbrains-mono-400.ttf", import.meta.url)
+  new URL("../../../../public/fonts/jetbrains-mono-800.ttf", import.meta.url)
 ).then((res) => res.arrayBuffer());
 
 export default async function handler(req: NextRequest) {
@@ -37,8 +37,8 @@ export default async function handler(req: NextRequest) {
   if (error) return new Response(error, { status: 500 });
   if (!data) return new Response("No generation found", { status: 404 });
   return new ImageResponse(OG({ generation: data, width, height }), {
-    width: width,
-    height: height,
+    width,
+    height,
     fonts: [
       {
         name: "JetBrains Mono",
