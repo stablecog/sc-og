@@ -22,6 +22,7 @@ const jbMono800 = fetch(
 ).then((res) => res.arrayBuffer());
 
 export default async function handler(req: NextRequest) {
+  const start = Date.now();
   const [dataJbMono400, dataJbMono700, dataJbMono800] = await Promise.all([
     jbMono400,
     jbMono700,
@@ -37,32 +38,31 @@ export default async function handler(req: NextRequest) {
   const { data: generation, error } = generationRes;
   if (error) return new Response(error, { status: 500 });
   if (!generation) return new Response("No generation found", { status: 404 });
-  return cors(
-    req,
-    // @ts-ignore
-    new ImageResponse(OG({ generation, width, height }), {
-      width,
-      height,
-      fonts: [
-        {
-          name: "JetBrains Mono",
-          data: dataJbMono400,
-          style: "normal",
-          weight: 400,
-        },
-        {
-          name: "JetBrains Mono",
-          data: dataJbMono700,
-          style: "normal",
-          weight: 700,
-        },
-        {
-          name: "JetBrains Mono",
-          data: dataJbMono800,
-          style: "normal",
-          weight: 800,
-        },
-      ],
-    })
-  );
+  const response = new ImageResponse(OG({ generation, width, height }), {
+    width,
+    height,
+    fonts: [
+      {
+        name: "JetBrains Mono",
+        data: dataJbMono400,
+        style: "normal",
+        weight: 400,
+      },
+      {
+        name: "JetBrains Mono",
+        data: dataJbMono700,
+        style: "normal",
+        weight: 700,
+      },
+      {
+        name: "JetBrains Mono",
+        data: dataJbMono800,
+        style: "normal",
+        weight: 800,
+      },
+    ],
+  }) as Response;
+  const end = Date.now();
+  console.log(`---- OG image for "${id}" in: ${end - start}ms ----`);
+  return cors(req, response);
 }
