@@ -63,6 +63,6 @@ export default async function handler(req: NextRequest) {
     ],
   }) as Response;
   const end = Date.now();
-  console.log(`---- OG image for "${id}" in: ${end - start}ms ----`);
+  console.log(`-- OG image for "${generation.id}" in: ${end - start}ms --`);
   return cors(req, response);
 }
