@@ -86,6 +86,7 @@ export default function OG({
                 width: 72,
                 height: 72,
                 marginLeft: -8,
+                marginTop: -8,
               }}
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
