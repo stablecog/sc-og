@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import OG from "../../../../lib/components/og";
 import cors from "../../../../lib/ts/constants/cors";
 import { getGenerationG } from "../../../../lib/ts/helpers/getGenerationG";
+import sharp from "sharp";
 
 export const config = {
   runtime: "experimental-edge",
@@ -37,6 +38,16 @@ export default async function handler(req: NextRequest) {
   const { data: generation, error } = generationRes;
   if (error) return new Response(error, { status: 500 });
   if (!generation) return new Response("No generation found", { status: 404 });
+  try {
+    const webpRes = await fetch(
+      `${process.env.PUBLIC_R2_URL}/${generation.image_id}.webp`
+    );
+    const webpArrayBuffer = await webpRes.arrayBuffer();
+    const webpBuffer = Buffer.from(webpArrayBuffer);
+    const jpegBuffer = await sharp(webpBuffer).jpeg().toBuffer();
+  } catch (error) {
+    console.log(error);
+  }
   return cors(
     req,
     // @ts-ignore
