@@ -34,13 +34,13 @@ export default async function handler(req: NextRequest) {
   }
   const id = idWithExt.split(".")[0];
   const generationRes = await getGenerationG(id);
-  const { data, error } = generationRes;
+  const { data: generation, error } = generationRes;
   if (error) return new Response(error, { status: 500 });
-  if (!data) return new Response("No generation found", { status: 404 });
+  if (!generation) return new Response("No generation found", { status: 404 });
   return cors(
     req,
     // @ts-ignore
-    new ImageResponse(OG({ generation: data, width, height }), {
+    new ImageResponse(OG({ generation, width, height }), {
       width,
       height,
       fonts: [

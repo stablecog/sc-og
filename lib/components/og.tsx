@@ -34,13 +34,22 @@ export default function OG({
   const bgColor = "rgb(32, 31, 34)";
   const onBgColor = "rgb(219, 213, 231)";
   const bgSecondaryColor = "rgb(41, 40, 43)";
-
+  const dotColor = "rgba(219, 213, 231, 0.04)";
+  const dotDistance = 42;
+  const dotSizePercent = 5;
   return (
     <div
       style={{
         background: bgColor,
         color: onBgColor,
         padding: padding,
+        backgroundImage: `
+          radial-gradient(circle at 0px 0px, ${dotColor} ${dotSizePercent}%, transparent 0%),
+          radial-gradient(circle at 0px ${dotDistance}px, ${dotColor} ${dotSizePercent}%, transparent 0%),
+          radial-gradient(circle at ${dotDistance}px 0px, ${dotColor} ${dotSizePercent}%, transparent 0%),
+          radial-gradient(circle at ${dotDistance}px ${dotDistance}px, ${dotColor} ${dotSizePercent}%, transparent 0%)
+        `,
+        backgroundSize: `${dotDistance}px ${dotDistance}px`,
       }}
       tw="flex w-full h-full items-center justify-center"
     >
