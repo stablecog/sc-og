@@ -1,6 +1,7 @@
 import { ImageResponse } from "@vercel/og";
 import { NextRequest, NextResponse } from "next/server";
 import OG from "../../../../lib/components/og";
+import cors from "../../../../lib/ts/constants/cors";
 import { getGenerationG } from "../../../../lib/ts/helpers/getGenerationG";
 
 export const config = {
@@ -36,28 +37,35 @@ export default async function handler(req: NextRequest) {
   const { data, error } = generationRes;
   if (error) return new Response(error, { status: 500 });
   if (!data) return new Response("No generation found", { status: 404 });
-  return new ImageResponse(OG({ generation: data, width, height }), {
-    width,
-    height,
-    fonts: [
-      {
-        name: "JetBrains Mono",
-        data: dataJbMono400,
-        style: "normal",
-        weight: 400,
-      },
-      {
-        name: "JetBrains Mono",
-        data: dataJbMono700,
-        style: "normal",
-        weight: 700,
-      },
-      {
-        name: "JetBrains Mono",
-        data: dataJbMono800,
-        style: "normal",
-        weight: 800,
-      },
-    ],
-  });
+  return cors(
+    req,
+    // @ts-ignore
+    new ImageResponse(OG({ generation: data, width, height }), {
+      width,
+      height,
+      fonts: [
+        {
+          name: "JetBrains Mono",
+          data: dataJbMono400,
+          style: "normal",
+          weight: 400,
+        },
+        {
+          name: "JetBrains Mono",
+          data: dataJbMono700,
+          style: "normal",
+          weight: 700,
+        },
+        {
+          name: "JetBrains Mono",
+          data: dataJbMono800,
+          style: "normal",
+          weight: 800,
+        },
+      ],
+    }),
+    {
+      origin: "https://stablecog.com",
+    }
+  );
 }
