@@ -63,9 +63,6 @@ export default async function handler(req: NextRequest) {
           weight: 800,
         },
       ],
-    }),
-    {
-      origin: "https://stablecog.com",
-    }
+    })
   );
 }
