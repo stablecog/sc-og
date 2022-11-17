@@ -11,7 +11,7 @@ export default function OG({
 }) {
   const imageUrl = `https://stablecog.com/api/generation-image/${generation.image_id}.jpeg`;
   const maxPromptLength = 130;
-  const padding = 24;
+  const padding = 28;
   let imageWidth: number;
   let imageHeight: number;
   let imageContainerWidth: number;
@@ -32,11 +32,14 @@ export default function OG({
   const containerWidth = width - 2 * padding - imageContainerWidth;
 
   const bgColor = "rgb(32, 31, 34)";
+  const shadowColor = "rgba(0, 0, 0, 0.4)";
   const onBgColor = "rgb(219, 213, 231)";
   const bgSecondaryColor = "rgb(41, 40, 43)";
   const dotColor = "rgba(219, 213, 231, 0.04)";
   const dotDistance = 42;
   const dotSizePercent = 5;
+  const ringWidth = 5;
+
   return (
     <div
       style={{
@@ -59,9 +62,7 @@ export default function OG({
           overflow: "hidden",
           width: imageContainerWidth,
           height: imageContainerHeight,
-          borderColor: bgSecondaryColor,
-          borderWidth: 4,
-          borderStyle: "solid",
+          boxShadow: `0px 0px 0px ${ringWidth}px ${bgSecondaryColor}, 0px 20px 60px 0px ${shadowColor}`,
         }}
       >
         <img
@@ -249,7 +250,6 @@ export default function OG({
                   fill={onBgColor}
                 />
               </svg>
-
               <p tw="ml-3 font-bold text-3xl">
                 {generation.width}
                 <span tw="mx-1.5">×</span>
