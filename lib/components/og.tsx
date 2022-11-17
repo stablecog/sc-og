@@ -185,8 +185,9 @@ export default function OG({
             }}
             tw="w-full text-3xl opacity-75 mt-4 overflow-hidden"
           >
-            {generation.prompt.text.slice(0, maxPromptLength)}
-            {generation.prompt.text.length > maxPromptLength ? "..." : ""}
+            {`${generation.prompt.text.slice(0, maxPromptLength)}${
+              generation.prompt.text.length > maxPromptLength ? "..." : ""
+            }`}
           </p>
           <div tw="w-full flex mt-2">
             <div tw="flex items-center mr-10">
