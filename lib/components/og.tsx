@@ -32,7 +32,7 @@ export default function OG({
   const containerWidth = width - 2 * padding - imageContainerWidth;
 
   const bgColor = "rgb(32, 31, 34)";
-  const shadowColor = "rgba(0, 0, 0, 0.4)";
+  const shadowColor = "rgba(0, 0, 0, 0.3)";
   const onBgColor = "rgb(219, 213, 231)";
   const bgSecondaryColor = "rgb(41, 40, 43)";
   const dotColor = "rgba(219, 213, 231, 0.04)";
@@ -62,7 +62,7 @@ export default function OG({
           overflow: "hidden",
           width: imageContainerWidth,
           height: imageContainerHeight,
-          boxShadow: `0px 0px 0px ${ringWidth}px ${bgSecondaryColor}, 0px 20px 60px 0px ${shadowColor}`,
+          boxShadow: `0px 0px 0px ${ringWidth}px ${bgSecondaryColor}, 0px 12px 36px 0px ${shadowColor}`,
         }}
       >
         <img
