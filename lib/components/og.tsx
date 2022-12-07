@@ -9,7 +9,7 @@ export default function OG({
   width: number;
   height: number;
 }) {
-  const imageUrl = `https://stablecog.com/api/generation-g-image/${generation.image_id}.jpeg`;
+  const imageUrl = `https://api.stablecog.com/api/generation-g-image/${generation.image_id}.jpeg`;
   const maxPromptLength = 130;
   const padding = 28;
   let imageWidth: number;
