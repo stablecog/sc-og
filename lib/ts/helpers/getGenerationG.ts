@@ -15,7 +15,7 @@ export async function getGenerationG(id: string) {
 			negative_prompt:negative_prompt_id(id,text),
 			model:model_id(id,name),
 			seed,
-			inference_steps,
+			num_inference_steps,
 			guidance_scale,
 			image_id,
 			created_at,
@@ -32,7 +32,7 @@ export async function getGenerationG(id: string) {
       width: data.width,
       height: data.height,
       seed: data.seed,
-      inference_steps: data.inference_steps,
+      num_inference_steps: data.num_inference_steps,
       guidance_scale: data.guidance_scale,
       image_id: data.image_id,
       created_at: data.created_at,
@@ -56,7 +56,7 @@ export interface TDBGenerationG {
   width: number;
   height: number;
   seed: number;
-  inference_steps: number | null;
+  num_inference_steps: number | null;
   guidance_scale: number;
   image_id: string;
   created_at: string;

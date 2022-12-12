@@ -230,7 +230,9 @@ export default function OG({
                   fill={onBgColor}
                 />
               </svg>
-              <p tw="ml-3 font-bold text-3xl">{generation.inference_steps}</p>
+              <p tw="ml-3 font-bold text-3xl">
+                {generation.num_inference_steps}
+              </p>
             </div>
             <div tw="flex items-center">
               <svg
