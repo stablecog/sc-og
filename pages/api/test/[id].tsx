@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import cors from "../../lib/ts/constants/cors";
+import cors from "../../../lib/ts/constants/cors";
 
 export const config = {
   runtime: "experimental-edge",
