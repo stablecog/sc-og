@@ -7,12 +7,7 @@ export const config = {
 
 export default async function handler(req: NextRequest) {
   try {
-    const body = await req.json();
-    const response = new NextResponse(JSON.stringify(body), {
-      headers: { "Content-Type": "application/json" },
-    });
-    console.log(body);
-    return cors(req, response);
+    return cors(req, new Response("Everything is fine", { status: 200 }));
   } catch (error) {
     return cors(req, new Response("No body", { status: 500 }));
   }
