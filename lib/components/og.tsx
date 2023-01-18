@@ -1,6 +1,7 @@
 import { TDBGenerationG } from "../ts/helpers/getGenerationG";
 // @ts-ignore
 import HMACObj from "hmac-obj";
+import { Buffer } from "buffer";
 
 const urlSafeBase64 = (b: Buffer | string) => {
   return Buffer.from(b)
