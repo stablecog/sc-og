@@ -1,6 +1,26 @@
 import { TDBGenerationG } from "../ts/helpers/getGenerationG";
+// @ts-ignore
+import HMACObj from "hmac-obj";
 
-export default function OG({
+const urlSafeBase64 = (b: Buffer | string) => {
+  return Buffer.from(b)
+    .toString("base64")
+    .replace(/=/g, "")
+    .replace(/\+/g, "-")
+    .replace(/\//g, "_");
+};
+
+const hexDecode = (hex: string) => Buffer.from(hex, "hex");
+
+const sign = async (salt: string, target: string, secret: string) => {
+  const hmac = new HMACObj("SHA-256");
+  await hmac.importKey(hexDecode(secret));
+  await hmac.update(hexDecode(salt));
+  await hmac.update(target);
+  return urlSafeBase64(hmac.digest());
+};
+
+export default async function OG({
   generation,
   width,
   height,
@@ -9,7 +29,21 @@ export default function OG({
   width: number;
   height: number;
 }) {
-  const imageUrl = `https://api.stablecog.com/generation-g-image/${generation.image_id}.jpeg`;
+  let imageId = generation.image_id;
+  const parts = generation.image_id.split(".");
+  if (parts.length < 2) {
+    imageId = `${imageId}.webp`;
+  }
+  const imageR2Url = `${process.env.PUBLIC_R2_URL}/${imageId}`;
+  const encodedUrl = urlSafeBase64(imageR2Url);
+  const path = `/${encodedUrl}.png`;
+  const signature = await sign(
+    process.env.IMGPROXY_SALT || "",
+    path,
+    process.env.IMGPROXY_KEY || ""
+  );
+  const finalImageUrl = `${process.env.PUBLIC_IMGPROXY_URL}/${signature}${path}`;
+
   const maxPromptLength = 130;
   const padding = 28;
   let imageWidth: number;
@@ -68,7 +102,7 @@ export default function OG({
         <img
           width={imageWidth.toString()}
           height={imageHeight.toString()}
-          src={imageUrl}
+          src={finalImageUrl}
         />
       </div>
       <div

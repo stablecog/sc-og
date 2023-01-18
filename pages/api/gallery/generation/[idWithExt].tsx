@@ -33,12 +33,12 @@ export default async function handler(req: NextRequest) {
   if (!idWithExt) {
     return new NextResponse("Not found", { status: 400 });
   }
-  const id = idWithExt.split(".")[0];
-  const generationRes = await getGenerationG(id);
-  const { data: generation, error } = generationRes;
+  const split = idWithExt.split(".");
+  const id = split[0];
+  const { data: generation, error } = await getGenerationG(id);
   if (error) return new Response(error, { status: 500 });
   if (!generation) return new Response("No generation found", { status: 404 });
-  const response = new ImageResponse(OG({ generation, width, height }), {
+  const response = new ImageResponse(await OG({ generation, width, height }), {
     width,
     height,
     fonts: [
