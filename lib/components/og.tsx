@@ -3,14 +3,7 @@ import { TDBGenerationG } from "../ts/helpers/getGenerationG";
 import HMACObj from "hmac-obj";
 import { Buffer } from "buffer";
 
-const urlSafeBase64 = (b: Buffer | string) => {
-  return Buffer.from(b)
-    .toString("base64")
-    .replace(/=/g, "")
-    .replace(/\+/g, "-")
-    .replace(/\//g, "_");
-};
-
+const urlSafeBase64 = (b: Buffer | string) => HMACObj.baseEx.base64_urlsafe.encode(b, "nopad");
 const hexDecode = (hex: string) => Buffer.from(hex, "hex");
 
 const sign = async (salt: string, target: string, secret: string) => {
@@ -18,7 +11,7 @@ const sign = async (salt: string, target: string, secret: string) => {
   await hmac.importKey(hexDecode(secret));
   await hmac.update(hexDecode(salt));
   await hmac.update(target);
-  return urlSafeBase64(hmac.digest());
+  return hmac.basedigest.toBase64_urlsafe("nopad");
 };
 
 export default async function OG({
