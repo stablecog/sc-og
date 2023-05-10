@@ -39,7 +39,7 @@ export default async function OG({
   );
   const finalImageUrl = `${process.env.PUBLIC_IMGPROXY_URL}/${signature}${path}`;
 
-  const maxPromptLength = 130;
+  const maxPromptLength = 125;
   const padding = 28;
   let imageWidth: number;
   let imageHeight: number;
@@ -60,11 +60,11 @@ export default async function OG({
   }
   const containerWidth = width - 2 * padding - imageContainerWidth;
 
-  const bgColor = "rgb(32, 31, 34)";
-  const shadowColor = "rgba(0, 0, 0, 0.3)";
-  const onBgColor = "rgb(219, 213, 231)";
-  const bgSecondaryColor = "rgb(41, 40, 43)";
-  const dotColor = "rgba(219, 213, 231, 0.04)";
+  const bgColor = "rgb(18, 18, 23)";
+  const shadowColor = "rgba(0, 0, 4, 0.3)";
+  const onBgColor = "rgb(220, 220, 234)";
+  const bgSecondaryColor = "rgb(28, 28, 35)";
+  const dotColor = "rgba(220, 220, 234, 0.03)";
   const dotDistance = 42;
   const dotSizePercent = 5;
   const ringWidth = 5;
@@ -206,24 +206,24 @@ export default async function OG({
                 </linearGradient>
               </defs>
             </svg>
-            <h1 tw="font-extrabold text-7xl ml-4">Gallery</h1>
+            <h1 tw="font-bold text-7xl ml-4 -mt-6">Gallery</h1>
           </div>
           <p
             style={{
-              lineHeight: 1.35,
+              lineHeight: 1,
             }}
-            tw="w-full text-3xl opacity-75 mt-4 overflow-hidden"
+            tw="w-full flex font-medium flex-wrap break-words text-4xl opacity-75 mt-2"
           >
             {`${hit.prompt_text.slice(0, maxPromptLength)}${
               hit.prompt_text.length > maxPromptLength ? "..." : ""
             }`}
           </p>
-          <div tw="w-full flex mt-2">
+          <div tw="w-full flex mt-3">
             <div tw="flex items-center mr-10">
               <svg
                 style={{
-                  width: 32,
-                  height: 32,
+                  width: 36,
+                  height: 36,
                 }}
                 width="24"
                 height="24"
@@ -238,15 +238,15 @@ export default async function OG({
                   fill={onBgColor}
                 />
               </svg>
-              <p tw="ml-3 font-bold text-3xl">
+              <p tw="ml-3 font-bold text-4xl mt-0.5">
                 {Math.round(hit.guidance_scale)}
               </p>
             </div>
             <div tw="flex items-center mr-10">
               <svg
                 style={{
-                  width: 32,
-                  height: 32,
+                  width: 36,
+                  height: 36,
                 }}
                 viewBox="0 0 24 24"
                 fill="none"
@@ -259,13 +259,13 @@ export default async function OG({
                   fill={onBgColor}
                 />
               </svg>
-              <p tw="ml-3 font-bold text-3xl">{hit.inference_steps}</p>
+              <p tw="ml-3 font-bold text-4xl mt-0.5">{hit.inference_steps}</p>
             </div>
             <div tw="flex items-center">
               <svg
                 style={{
-                  width: 32,
-                  height: 32,
+                  width: 36,
+                  height: 36,
                 }}
                 width="24"
                 height="24"
@@ -280,7 +280,7 @@ export default async function OG({
                   fill={onBgColor}
                 />
               </svg>
-              <p tw="ml-3 font-bold text-3xl">
+              <p tw="ml-3 font-bold text-4xl mt-0.5">
                 {hit.width}
                 <span tw="mx-1.5">×</span>
                 {hit.height}
