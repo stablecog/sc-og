@@ -1,25 +1,12 @@
 // @ts-ignore
-import HMACObj from "hmac-obj";
-import { Buffer } from "buffer";
 import { TGalleryGenerationHit } from "../ts/types/gallery";
+import { Base64 } from "js-base64";
 
-const urlSafeBase64 = (b: Buffer | string) => {
-  return Buffer.from(b)
-    .toString("base64")
-    .replace(/=/g, "")
-    .replace(/\+/g, "-")
-    .replace(/\//g, "_");
-};
-
-const hexDecode = (hex: string) => Buffer.from(hex, "hex");
-
-const sign = async (salt: string, target: string, secret: string) => {
-  const hmac = new HMACObj("SHA-256");
-  await hmac.importKey(hexDecode(secret));
-  await hmac.update(hexDecode(salt));
-  await hmac.update(target);
-  return urlSafeBase64(hmac.digest());
-};
+function getImgProxySrc(src: string) {
+  return `${process.env.PUBLIC_IMGPROXY_URL}/insecure/768w/${Base64.encodeURL(
+    src
+  )}.png`;
+}
 
 export default async function OG({
   hit,
@@ -30,14 +17,7 @@ export default async function OG({
   width: number;
   height: number;
 }) {
-  const encodedUrl = urlSafeBase64(hit.image_url);
-  const path = `/${encodedUrl}.png`;
-  const signature = await sign(
-    process.env.IMGPROXY_SALT || "",
-    path,
-    process.env.IMGPROXY_KEY || ""
-  );
-  const finalImageUrl = `${process.env.PUBLIC_IMGPROXY_URL}/${signature}${path}`;
+  const finalImageUrl = getImgProxySrc(hit.image_url);
 
   const maxPromptLength = 125;
   const padding = 28;
