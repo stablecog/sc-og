@@ -1,4 +1,4 @@
-import { normalizeArray } from "./helpers";
+import { cleanText, normalizeArray } from "./helpers";
 
 export default async function OG({
   speakerImageUrl,
@@ -11,6 +11,8 @@ export default async function OG({
   prompt: string;
   audioArray: number[] | null;
 }) {
+  prompt = cleanText(prompt).slice(0, 200);
+
   const padding = 32;
   const bgColor = "rgb(18, 18, 23)";
   const onBgColor = "rgb(220, 220, 234)";

@@ -47,3 +47,9 @@ export function normalizeArray({
   const multiplier = Math.pow(Math.max(...array), -1);
   return array.map((num) => Math.max(min, Math.min(max, num * multiplier)));
 }
+
+export function cleanText(text: string): string {
+  let replaced = text.replace(/(\r\n|\n|\r)/gm, " ");
+  replaced = replaced.replace(/  +/g, " ");
+  return replaced;
+}
