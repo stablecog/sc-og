@@ -19,7 +19,7 @@ export default async function OG({
   const dotDistance = 32;
   const dotSizePercent = 5;
 
-  const valueMin = 0.3;
+  const valueMin = 0.4;
   const audioArrayFinal =
     audioArray !== null
       ? normalizeArray({ array: audioArray, min: valueMin })
