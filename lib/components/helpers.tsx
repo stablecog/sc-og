@@ -156,7 +156,9 @@ function getTangents(y: number[], n: number): number[] {
 
 export function monotoneCubicInterpolation(
   data: number[],
-  fitCount: number
+  fitCount: number,
+  min: number = 0,
+  max: number = 1
 ): number[] {
   const n = data.length;
   const newData = new Array(fitCount).fill(0);
@@ -185,5 +187,5 @@ export function monotoneCubicInterpolation(
     }
   }
 
-  return newData.map((val) => Math.min(1, Math.max(0, val)));
+  return newData.map((val) => Math.min(max, Math.max(min, val)));
 }
