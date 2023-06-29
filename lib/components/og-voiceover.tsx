@@ -27,7 +27,7 @@ export default async function OG({
   const dotDistance = 32;
   const dotSizePercent = 5;
 
-  const valueMin = 0.4;
+  const valueMin = 0.3;
   const valueMax = 1;
   const valueCount = 40;
   const placeholderArray = Array.from({ length: valueCount }).map(
