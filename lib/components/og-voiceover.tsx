@@ -81,7 +81,7 @@ export default async function OG({
             fontSize: 32,
             whiteSpace: "nowrap",
             overflow: "hidden",
-            paddingBottom: 12,
+            paddingBottom: 15,
             paddingRight: 48,
             textOverflow: "ellipsis",
             fontWeight: 500,
