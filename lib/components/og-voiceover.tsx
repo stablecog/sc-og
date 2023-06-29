@@ -1,4 +1,10 @@
-import { cleanText, normalizeArray } from "./helpers";
+import {
+  cleanText,
+  cubicSplineInterpolation,
+  interpolateArray,
+  monotoneCubicInterpolation,
+  normalizeArray,
+} from "./helpers";
 
 export default async function OG({
   speakerImageUrl,
@@ -22,10 +28,14 @@ export default async function OG({
   const dotSizePercent = 5;
 
   const valueMin = 0.4;
+  const valueCount = 40;
   const audioArrayFinal =
     audioArray !== null
-      ? normalizeArray({ array: audioArray, min: valueMin })
-      : Array.from({ length: 40 }).map(
+      ? monotoneCubicInterpolation(
+          normalizeArray({ array: audioArray, min: valueMin }),
+          valueCount
+        )
+      : Array.from({ length: valueCount }).map(
           () => Math.random() * (1 - valueMin) + valueMin
         );
   return (
