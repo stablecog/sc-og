@@ -48,13 +48,13 @@ export default async function OG({
         background: bgColor,
         color: onBgColor,
         padding: padding,
-        backgroundImage: `
+        /* backgroundImage: `
           radial-gradient(circle at 0px 0px, ${dotColor} ${dotSizePercent}%, transparent 0%),
           radial-gradient(circle at 0px ${dotDistance}px, ${dotColor} ${dotSizePercent}%, transparent 0%),
           radial-gradient(circle at ${dotDistance}px 0px, ${dotColor} ${dotSizePercent}%, transparent 0%),
           radial-gradient(circle at ${dotDistance}px ${dotDistance}px, ${dotColor} ${dotSizePercent}%, transparent 0%)
         `,
-        backgroundSize: `${dotDistance}px ${dotDistance}px`,
+        backgroundSize: `${dotDistance}px ${dotDistance}px`, */
       }}
       tw="flex flex-col w-full h-full items-center justify-center"
     >
@@ -204,8 +204,8 @@ export default async function OG({
               style={{
                 height: `${value * 100}%`,
                 width: `${100 / audioArrayFinal.length}%`,
-                paddingRight: 4,
-                paddingLeft: 4,
+                paddingRight: 3,
+                paddingLeft: 3,
               }}
             >
               <div
