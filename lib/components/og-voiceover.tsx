@@ -185,7 +185,7 @@ export default async function OG({
       <div
         style={{
           borderRadius: 12,
-          paddingTop: 8,
+          paddingTop: 20,
           paddingBottom: 4,
         }}
         tw="flex-1 w-full h-full flex items-center justify-between"

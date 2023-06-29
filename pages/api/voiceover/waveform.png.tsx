@@ -15,7 +15,7 @@ export const config = {
 };
 
 const width = 1024;
-const height = 256;
+const height = 384;
 
 const font400 = fetch(
   new URL(
