@@ -47,19 +47,14 @@ export default async function handler(req: NextRequest) {
   const speaker = Base64.decode(searchParams.get("speaker") || "");
   const prompt = Base64.decode(searchParams.get("prompt") || "");
   const audioArrayParam = searchParams.get("audio_array");
-  const audioArrayParsed: number[] | null = audioArrayParam
-    ? JSON.parse(audioArrayParam)
+  const audioArray: number[] | null = audioArrayParam
+    ? audioArrayParam.split(",").map((a) => parseFloat(a))
     : null;
-  const audioArray =
-    Array.isArray(audioArrayParsed) &&
-    !audioArrayParsed.some((a) => typeof a !== "number")
-      ? audioArrayParsed
-      : null;
 
   let speakerImageUrl = null;
   try {
     let speakerId = null;
-    const { data, error } = await supabaseAdmin
+    const { data } = await supabaseAdmin
       .from("voiceover_speakers")
       .select("*")
       .filter("name_in_worker", "eq", speaker)
