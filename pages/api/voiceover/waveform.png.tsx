@@ -66,7 +66,7 @@ export default async function handler(req: NextRequest) {
       const url = getImgProxySrc({
         src: getSpeakerImageUrl(speakerId),
         extention: "png",
-        preset: "256w",
+        preset: "64w",
       });
       const res = await fetch(url);
       if (res.ok) {

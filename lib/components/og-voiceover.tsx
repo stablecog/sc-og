@@ -19,7 +19,7 @@ export default async function OG({
 }) {
   prompt = cleanText(prompt).slice(0, 200);
 
-  const padding = 40;
+  const padding = 48;
   const bgColor = "rgb(18, 18, 23)";
   const onBgColor = "rgb(220, 220, 234)";
   const primaryColor = "rgb(181 140 255)";
@@ -64,13 +64,13 @@ export default async function OG({
         tw="w-full flex justify-between items-center"
       >
         {speakerImageUrl && (
-          <div tw="flex" style={{ paddingRight: 18 }}>
+          <div tw="flex" style={{ paddingRight: 20 }}>
             <img
               style={{
-                width: 48,
-                height: 48,
+                width: 56,
+                height: 56,
                 background: "rgb(220, 220, 234)",
-                borderRadius: 10,
+                borderRadius: 12,
               }}
               src={speakerImageUrl}
             ></img>
@@ -191,29 +191,34 @@ export default async function OG({
           paddingTop: 20,
           paddingBottom: 4,
         }}
-        tw="flex-1 w-full h-full flex items-center justify-between"
+        tw="flex-1 w-full h-full flex flex-col items-center justify-between"
       >
-        {audioArrayFinal.map((value, index) => (
-          <div
-            key={index}
-            tw="flex"
-            style={{
-              height: `${value * 100}%`,
-              width: `${100 / audioArrayFinal.length}%`,
-              paddingRight: 4,
-              paddingLeft: 4,
-            }}
-          >
+        <div
+          style={{ paddingTop: 16, paddingBottom: 16 }}
+          tw="flex flex-1 flex-row items-center justify-between"
+        >
+          {audioArrayFinal.map((value, index) => (
             <div
+              key={index}
+              tw="flex"
               style={{
-                backgroundColor: primaryColor,
-                width: "100%",
-                height: "100%",
-                borderRadius: 9999,
+                height: `${value * 100}%`,
+                width: `${100 / audioArrayFinal.length}%`,
+                paddingRight: 4,
+                paddingLeft: 4,
               }}
-            ></div>
-          </div>
-        ))}
+            >
+              <div
+                style={{
+                  backgroundColor: primaryColor,
+                  width: "100%",
+                  height: "100%",
+                  borderRadius: 9999,
+                }}
+              ></div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
