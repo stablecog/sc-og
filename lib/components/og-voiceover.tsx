@@ -28,17 +28,20 @@ export default async function OG({
   const dotSizePercent = 5;
 
   const valueMin = 0.4;
+  const valueMax = 1;
   const valueCount = 40;
   const placeholderArray = Array.from({ length: valueCount }).map(
     () => Math.random() * (1 - valueMin) + valueMin
   );
-  const audioArrayFinal = monotoneCubicInterpolation(
-    normalizeArray({
+  const audioArrayFinal = monotoneCubicInterpolation({
+    data: normalizeArray({
       array: audioArray ?? placeholderArray,
       min: valueMin,
     }),
-    valueCount
-  );
+    fitCount: valueCount,
+    min: valueMin,
+    max: valueMax,
+  });
   return (
     <div
       style={{

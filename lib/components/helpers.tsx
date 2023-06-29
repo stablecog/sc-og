@@ -37,15 +37,13 @@ export function getSpeakerImageUrl(speakerId: string) {
 
 export function normalizeArray({
   array,
-  min = 0,
-  max = 1,
 }: {
   array: number[];
   min?: number;
   max?: number;
 }): number[] {
   const multiplier = Math.pow(Math.max(...array), -1);
-  return array.map((num) => Math.max(min, Math.min(max, num * multiplier)));
+  return array.map((num) => Math.max(0, Math.min(1, num * multiplier)));
 }
 
 export function cleanText(text: string): string {
@@ -154,12 +152,17 @@ function getTangents(y: number[], n: number): number[] {
   return m;
 }
 
-export function monotoneCubicInterpolation(
-  data: number[],
-  fitCount: number,
-  min: number = 0,
-  max: number = 1
-): number[] {
+export function monotoneCubicInterpolation({
+  data,
+  fitCount,
+  min = 0,
+  max = 1,
+}: {
+  data: number[];
+  fitCount: number;
+  min: number;
+  max: number;
+}): number[] {
   const n = data.length;
   const newData = new Array(fitCount).fill(0);
   const delta = (n - 1) / (fitCount - 1);
