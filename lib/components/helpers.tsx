@@ -185,5 +185,5 @@ export function monotoneCubicInterpolation(
     }
   }
 
-  return newData;
+  return newData.map((val) => Math.min(1, Math.max(0, val)));
 }
