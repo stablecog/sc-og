@@ -1,12 +1,6 @@
 // @ts-ignore
 import { TGalleryGenerationHit } from "../ts/types/gallery";
-import { Base64 } from "js-base64";
-
-function getImgProxySrc(src: string) {
-  return `${process.env.PUBLIC_IMGPROXY_URL}/insecure/768w/${Base64.encodeURL(
-    src
-  )}.png`;
-}
+import { getImgProxySrc } from "./helpers";
 
 export default async function OG({
   hit,
@@ -17,7 +11,11 @@ export default async function OG({
   width: number;
   height: number;
 }) {
-  const finalImageUrl = getImgProxySrc(hit.image_url);
+  const finalImageUrl = getImgProxySrc({
+    src: hit.image_url,
+    preset: "768w",
+    extention: "png",
+  });
 
   const maxPromptLength = 125;
   const padding = 28;
