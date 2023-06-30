@@ -47,11 +47,17 @@ export function normalizeArray({
   if (array.length === 0) {
     throw new Error("Array cannot be empty");
   }
-  if (min === max) {
+  const maxVal = Math.max(...array);
+  const minVal = Math.min(...array);
+
+  if (maxVal === minVal) {
+    // Array elements are all the same
     return array.map(() => 1);
   }
 
-  return array.map((val) => (val - min) / (max - min));
+  return array.map((val) =>
+    Math.min(max, Math.max(min, (val - minVal) / (maxVal - minVal)))
+  );
 }
 
 export function cleanText(text: string): string {
