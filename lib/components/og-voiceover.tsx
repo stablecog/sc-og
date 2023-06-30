@@ -215,12 +215,13 @@ export default async function OG({
           {prompt}
           {prompt && prompt.length > 0 ? "" : "..."}
         </p>
+        <div style={{ width: 1 }}></div>
       </div>
       {/* Waveform */}
       <div
         style={{
           borderRadius: 12,
-          paddingTop: 4,
+          paddingTop: 8,
         }}
         tw="flex-1 w-full h-full flex flex-col items-center justify-between"
       >
