@@ -52,6 +52,7 @@ export default async function handler(req: NextRequest) {
     : null;
 
   let speakerImageUrl = null;
+  let speakerName = null;
   try {
     let speakerId = null;
     const { data } = await supabaseAdmin
@@ -61,6 +62,8 @@ export default async function handler(req: NextRequest) {
       .single();
     if (data) {
       speakerId = data.id;
+      speakerName = data.name;
+      console.log(speakerName, speakerId);
     }
     if (speakerId) {
       const url = getImgProxySrc({
@@ -82,6 +85,7 @@ export default async function handler(req: NextRequest) {
       width,
       height,
       speakerImageUrl,
+      speakerName,
       prompt,
       audioArray,
     }),
