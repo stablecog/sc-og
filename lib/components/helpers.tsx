@@ -37,13 +37,21 @@ export function getSpeakerImageUrl(speakerId: string) {
 
 export function normalizeArray({
   array,
+  min,
+  max,
 }: {
   array: number[];
-  min?: number;
-  max?: number;
+  min: number;
+  max: number;
 }): number[] {
-  const multiplier = Math.pow(Math.max(...array), -1);
-  return array.map((num) => Math.max(0, Math.min(1, num * multiplier)));
+  if (array.length === 0) {
+    throw new Error("Array cannot be empty");
+  }
+  if (min === max) {
+    return array.map(() => 1);
+  }
+
+  return array.map((val) => (val - min) / (max - min));
 }
 
 export function cleanText(text: string): string {

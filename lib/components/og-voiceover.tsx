@@ -35,15 +35,18 @@ export default async function OG({
   const placeholderArray = Array.from({ length: valueCount }).map(
     () => Math.random() * (1 - valueMin) + valueMin
   );
-  const audioArrayFinal = monotoneCubicInterpolation({
-    data: normalizeArray({
-      array: audioArray ?? placeholderArray,
-      min: valueMin,
-    }),
-    fitCount: valueCount,
-    min: valueMin,
-    max: valueMax,
-  });
+  const audioArrayFinal = audioArray
+    ? normalizeArray({
+        array: audioArray,
+        min: valueMin,
+        max: valueMax,
+      })
+    : monotoneCubicInterpolation({
+        data: placeholderArray,
+        fitCount: valueCount,
+        min: valueMin,
+        max: valueMax,
+      });
   return (
     <div
       style={{
