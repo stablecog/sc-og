@@ -76,7 +76,7 @@ export default async function OG({
                   width: 64,
                   height: 64,
                   background: "rgb(220, 220, 234)",
-                  borderRadius: 12,
+                  borderRadius: 14,
                 }}
                 src={speakerImageUrl}
               ></img>
