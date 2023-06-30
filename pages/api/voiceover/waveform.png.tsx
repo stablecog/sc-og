@@ -63,7 +63,6 @@ export default async function handler(req: NextRequest) {
     if (data) {
       speakerId = data.id;
       speakerName = data.name;
-      console.log(speakerName, speakerId);
     }
     if (speakerId) {
       const url = getImgProxySrc({
