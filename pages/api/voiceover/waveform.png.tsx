@@ -13,8 +13,8 @@ export const config = {
   runtime: "experimental-edge",
 };
 
-const width = 1024;
-const height = 384;
+const width = 1200;
+const height = 480;
 
 const font400 = fetch(
   new URL(
@@ -67,7 +67,7 @@ export default async function handler(req: NextRequest) {
       const url = getImgProxySrc({
         src: getSpeakerImageUrl(speakerId),
         extention: "png",
-        preset: "64w",
+        preset: "76w",
       });
       const res = await fetch(url);
       if (res.ok) {

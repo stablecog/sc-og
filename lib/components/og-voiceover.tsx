@@ -1,7 +1,5 @@
 import {
   cleanText,
-  cubicSplineInterpolation,
-  interpolateArray,
   monotoneCubicInterpolation,
   normalizeArray,
 } from "./helpers";
@@ -21,13 +19,10 @@ export default async function OG({
 }) {
   prompt = cleanText(prompt).slice(0, 200);
 
-  const padding = 48;
+  const padding = 58;
   const bgColor = "rgb(18, 18, 23)";
   const onBgColor = "rgb(220, 220, 234)";
   const primaryColor = "rgb(181 140 255)";
-  const dotColor = "rgba(220, 220, 234, 0.03)";
-  const dotDistance = 32;
-  const dotSizePercent = 5;
 
   const valueMin = 0.2;
   const valueMax = 1;
@@ -53,22 +48,15 @@ export default async function OG({
         background: bgColor,
         color: onBgColor,
         padding: padding,
-        /* backgroundImage: `
-          radial-gradient(circle at 0px 0px, ${dotColor} ${dotSizePercent}%, transparent 0%),
-          radial-gradient(circle at 0px ${dotDistance}px, ${dotColor} ${dotSizePercent}%, transparent 0%),
-          radial-gradient(circle at ${dotDistance}px 0px, ${dotColor} ${dotSizePercent}%, transparent 0%),
-          radial-gradient(circle at ${dotDistance}px ${dotDistance}px, ${dotColor} ${dotSizePercent}%, transparent 0%)
-        `,
-        backgroundSize: `${dotDistance}px ${dotDistance}px`, */
       }}
       tw="flex flex-col w-full h-full items-center justify-center"
     >
       {/* Header */}
-      <div style={{ marginTop: -34 }} tw="w-full flex justify-end items-center">
+      <div style={{ marginTop: -38 }} tw="w-full flex justify-end items-center">
         {
           <div
             style={{
-              paddingRight: 36,
+              paddingRight: 40,
               opacity: speakerImageUrl && speakerName ? 1 : 0,
             }}
             tw="flex-1 min-w-0 flex items-center"
@@ -76,10 +64,10 @@ export default async function OG({
             {speakerImageUrl ? (
               <img
                 style={{
-                  width: 64,
-                  height: 64,
+                  width: 76,
+                  height: 76,
                   background: "rgb(220, 220, 234)",
-                  borderRadius: 14,
+                  borderRadius: 16,
                 }}
                 src={speakerImageUrl}
               ></img>
@@ -97,10 +85,10 @@ export default async function OG({
               tw="flex-1 min-w-0"
               style={{
                 fontWeight: 700,
-                fontSize: 40,
-                paddingBottom: 18,
-                paddingLeft: 20,
-                paddingRight: 20,
+                fontSize: 48,
+                paddingBottom: 20,
+                paddingLeft: 22,
+                paddingRight: 22,
                 overflow: "hidden",
                 textOverflow: "ellipsis",
               }}
@@ -111,7 +99,7 @@ export default async function OG({
           </div>
         }
         <svg
-          style={{ width: 242, height: 55.075862 }}
+          style={{ width: 290.4, height: 66.0910344 }}
           viewBox="0 0 290 66"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -207,7 +195,7 @@ export default async function OG({
       <div style={{ paddingBottom: 15, marginTop: -24 }} tw="w-full flex">
         <p
           style={{
-            fontSize: 32,
+            fontSize: 38,
             whiteSpace: "nowrap",
             overflow: "hidden",
             textOverflow: "ellipsis",
@@ -218,7 +206,6 @@ export default async function OG({
           {prompt}
           {prompt && prompt.length > 0 ? "" : "..."}
         </p>
-        <div style={{ width: 1 }}></div>
       </div>
       {/* Waveform */}
       <div
