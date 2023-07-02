@@ -7,7 +7,6 @@ import { Base64 } from "js-base64";
 import {
   getImgProxySrc,
   getSpeakerImageUrl,
-  normalizeArray,
 } from "../../../lib/components/helpers";
 
 export const config = {
@@ -15,7 +14,7 @@ export const config = {
 };
 
 const width = 1024;
-const height = 384;
+const height = 416;
 
 const font400 = fetch(
   new URL(
