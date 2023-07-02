@@ -52,7 +52,7 @@ export default async function OG({
       tw="flex flex-col w-full h-full items-center justify-center"
     >
       {/* Header */}
-      <div style={{ marginTop: -38 }} tw="w-full flex justify-end items-center">
+      <div style={{ marginTop: -36 }} tw="w-full flex justify-end items-center">
         {
           <div
             style={{
