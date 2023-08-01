@@ -3,10 +3,14 @@ import {
   TGalleryGenerationHit,
 } from "../types/gallery";
 
-export async function getOutput(id: string) {
+export async function getOutput(id: string, username?: string) {
   const apiUrl = process.env.PUBLIC_GO_API_URL;
   let hit: TGalleryGenerationHit | undefined = undefined;
-  const res = await fetch(`${apiUrl}/v1/gallery?output_id=${id}`);
+  const res = await fetch(
+    `${apiUrl}/v1/${
+      username ? `profile/${username}/outputs` : `gallery`
+    }?output_id=${id}`
+  );
   if (!res.ok) {
     return { error: "Response wasn't okay" };
   }
