@@ -13,19 +13,19 @@ const height = 630;
 
 const font400 = fetch(
   new URL(
-    "../../../../public/fonts/avenir-next/avenir-next-400.ttf",
+    "../../../../../public/fonts/avenir-next/avenir-next-400.ttf",
     import.meta.url
   )
 ).then((res) => res.arrayBuffer());
 const font500 = fetch(
   new URL(
-    "../../../../public/fonts/avenir-next/avenir-next-500.ttf",
+    "../../../../../public/fonts/avenir-next/avenir-next-500.ttf",
     import.meta.url
   )
 ).then((res) => res.arrayBuffer());
 const font700 = fetch(
   new URL(
-    "../../../../public/fonts/avenir-next/avenir-next-700.ttf",
+    "../../../../../public/fonts/avenir-next/avenir-next-700.ttf",
     import.meta.url
   )
 ).then((res) => res.arrayBuffer());
