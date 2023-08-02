@@ -48,7 +48,7 @@ export default async function handler(req: NextRequest) {
   }
   const split = idWithExt.split(".");
   const id = split[0];
-  const { data: hit, error } = await getOutput(id);
+  const { data: hit, error } = await getOutput(id, username);
   if (error) return new Response(error, { status: 500 });
   if (!hit) return new Response("Not found", { status: 404 });
   const response = new ImageResponse(

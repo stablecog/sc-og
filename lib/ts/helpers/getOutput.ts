@@ -6,12 +6,13 @@ import {
 export async function getOutput(id: string, username?: string) {
   const apiUrl = process.env.PUBLIC_GO_API_URL;
   let hit: TGalleryGenerationHit | undefined = undefined;
-  const res = await fetch(
-    `${apiUrl}/v1/${
-      username ? `profile/${username}/outputs` : `gallery`
-    }?output_id=${id}`
-  );
+  const url = `${apiUrl}/v1/${
+    username ? `profile/${username}/outputs` : `gallery`
+  }?output_id=${id}`;
+  console.log("Url is:", url);
+  const res = await fetch(url);
   if (!res.ok) {
+    console.log("Response wasn't okay");
     return { error: "Response wasn't okay" };
   }
   const data: TGalleryGenerationFullOutputPageRes = await res.json();

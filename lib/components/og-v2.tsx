@@ -204,7 +204,7 @@ export default async function OG({
             }`}
           </p>
           <div tw="w-full flex mt-3">
-            <div tw="flex items-center mr-10">
+            <div tw="flex items-center mr-8">
               <svg
                 style={{
                   width: 36,
@@ -223,11 +223,14 @@ export default async function OG({
                   fill={onBgColor}
                 />
               </svg>
-              <p tw="ml-3 font-bold text-4xl mt-0.5">
+              <p
+                style={{ marginLeft: "0.6rem" }}
+                tw="font-bold text-4xl mt-0.5"
+              >
                 {Math.round(hit.guidance_scale)}
               </p>
             </div>
-            <div tw="flex items-center mr-10">
+            <div tw="flex items-center mr-8">
               <svg
                 style={{
                   width: 36,
@@ -244,7 +247,12 @@ export default async function OG({
                   fill={onBgColor}
                 />
               </svg>
-              <p tw="ml-3 font-bold text-4xl mt-0.5">{hit.inference_steps}</p>
+              <p
+                style={{ marginLeft: "0.6rem" }}
+                tw="font-bold text-4xl mt-0.5"
+              >
+                {hit.inference_steps}
+              </p>
             </div>
             <div tw="flex items-center">
               <svg
@@ -265,9 +273,12 @@ export default async function OG({
                   fill={onBgColor}
                 />
               </svg>
-              <p tw="ml-3 font-bold text-4xl mt-0.5">
+              <p
+                style={{ marginLeft: "0.6rem" }}
+                tw="font-bold text-4xl mt-0.5"
+              >
                 {hit.width}
-                <span tw="mx-1.5">×</span>
+                <span tw="mx-1.5 mt-1 text-3xl">×</span>
                 {hit.height}
               </p>
             </div>
