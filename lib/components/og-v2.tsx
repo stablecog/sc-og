@@ -27,10 +27,10 @@ export default async function OG({
   let imageContainerHeight: number;
   const imageAspectRatio = hit.width / hit.height;
 
-  if (imageAspectRatio > 1) {
+  if (imageAspectRatio >= 1) {
     imageHeight = height - padding * 2;
     imageWidth = imageHeight * imageAspectRatio;
-    imageContainerWidth = imageHeight;
+    imageContainerWidth = imageHeight - 48;
     imageContainerHeight = imageHeight;
   } else {
     imageHeight = height - padding * 2;
@@ -204,7 +204,7 @@ export default async function OG({
             }`}
           </p>
           <div tw="w-full flex mt-3">
-            <div tw="flex items-center mr-8">
+            <div tw="flex items-center mr-10">
               <svg
                 style={{
                   width: 36,
@@ -223,14 +223,11 @@ export default async function OG({
                   fill={onBgColor}
                 />
               </svg>
-              <p
-                style={{ marginLeft: "0.6rem" }}
-                tw="font-bold text-4xl mt-0.5"
-              >
+              <p tw="font-bold text-4xl mt-0.5 ml-2">
                 {Math.round(hit.guidance_scale)}
               </p>
             </div>
-            <div tw="flex items-center mr-8">
+            <div tw="flex items-center mr-10">
               <svg
                 style={{
                   width: 36,
@@ -247,12 +244,7 @@ export default async function OG({
                   fill={onBgColor}
                 />
               </svg>
-              <p
-                style={{ marginLeft: "0.6rem" }}
-                tw="font-bold text-4xl mt-0.5"
-              >
-                {hit.inference_steps}
-              </p>
+              <p tw="font-bold text-4xl mt-0.5 ml-2">{hit.inference_steps}</p>
             </div>
             <div tw="flex items-center">
               <svg
@@ -273,10 +265,7 @@ export default async function OG({
                   fill={onBgColor}
                 />
               </svg>
-              <p
-                style={{ marginLeft: "0.6rem" }}
-                tw="font-bold text-4xl mt-0.5"
-              >
+              <p tw="font-bold text-4xl mt-0.5 ml-2">
                 {hit.width}
                 <span tw="mx-1.5 mt-1 text-3xl">×</span>
                 {hit.height}
