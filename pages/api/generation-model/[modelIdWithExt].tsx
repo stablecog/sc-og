@@ -1,17 +1,15 @@
 import { ImageResponse } from "@vercel/og";
-import { NextRequest } from "next/server";
-import OG from "@components/og-voiceover";
+import { NextRequest, NextResponse } from "next/server";
 import cors from "@ts/constants/cors";
-import { supabaseAdmin } from "@ts/constants/supabaseAdmin";
-import { Base64 } from "js-base64";
-import { getImgProxySrc, getSpeakerImageUrl } from "@ts/helpers/main";
+import { getGenerationModel } from "@ts/helpers/getGenerationModel";
+import OGGenerationModel from "@components/og-generation-model";
 
 export const config = {
   runtime: "experimental-edge",
 };
 
 const width = 1200;
-const height = 480;
+const height = 630;
 
 const font400 = fetch(
   new URL(
@@ -33,57 +31,25 @@ const font700 = fetch(
 ).then((res) => res.arrayBuffer());
 
 export default async function handler(req: NextRequest) {
+  const start = Date.now();
   const [fontData400, fontData500, fontData700] = await Promise.all([
     font400,
     font500,
     font700,
   ]);
-
   const { searchParams } = new URL(req.url);
-  const speaker = Base64.decode(searchParams.get("speaker") || "");
-  const prompt = Base64.decode(searchParams.get("prompt") || "");
-  const audioArrayParam = searchParams.get("audio_array");
-  const audioArray: number[] | null = audioArrayParam
-    ? audioArrayParam.split(",").map((a) => parseFloat(a))
-    : null;
-
-  let speakerImageUrl = null;
-  let speakerName = null;
-  try {
-    let speakerId = null;
-    const { data } = await supabaseAdmin
-      .from("voiceover_speakers")
-      .select("*")
-      .filter("name_in_worker", "eq", speaker)
-      .single();
-    if (data) {
-      speakerId = data.id;
-      speakerName = data.name;
-    }
-    if (speakerId) {
-      const url = getImgProxySrc({
-        src: getSpeakerImageUrl(speakerId),
-        extention: "png",
-        preset: "76w",
-      });
-      const res = await fetch(url);
-      if (res.ok) {
-        speakerImageUrl = url;
-      }
-    }
-  } catch (error) {
-    console.log(error);
+  const modelIdWithExt = searchParams.get("modelIdWithExt");
+  if (!modelIdWithExt) {
+    return new NextResponse("Not found", { status: 400 });
   }
-
+  const split = modelIdWithExt.split(".");
+  const id = split[0];
+  const { data: generationModel, error } = await getGenerationModel(id);
+  if (error) return new Response(error, { status: 500 });
+  if (!generationModel)
+    return new Response("No generation model found", { status: 404 });
   const response = new ImageResponse(
-    await OG({
-      width,
-      height,
-      speakerImageUrl,
-      speakerName,
-      prompt,
-      audioArray,
-    }),
+    await OGGenerationModel({ model: generationModel, width, height }),
     {
       width,
       height,
@@ -109,5 +75,9 @@ export default async function handler(req: NextRequest) {
       ],
     }
   ) as Response;
+  const end = Date.now();
+  console.log(
+    `-- OG image for model "${generationModel.id}" in: ${end - start}ms --`
+  );
   return cors(req, response);
 }

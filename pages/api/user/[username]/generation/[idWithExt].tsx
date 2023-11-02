@@ -1,8 +1,8 @@
 import { ImageResponse } from "@vercel/og";
 import { NextRequest, NextResponse } from "next/server";
-import OG from "../../../../../lib/components/og";
-import cors from "../../../../../lib/ts/constants/cors";
-import { getGenerationG } from "../../../../../lib/ts/helpers/getGenerationG";
+import OG from "@components/og";
+import cors from "@ts/constants/cors";
+import { getGenerationG } from "@ts/helpers/getGenerationG";
 
 export const config = {
   runtime: "experimental-edge",
