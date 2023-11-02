@@ -1,6 +1,6 @@
 // @ts-ignore
 import { TGalleryGenerationHit } from "../ts/types/gallery";
-import { getImgProxySrc } from "./helpers";
+import { getImgProxySrc } from "@ts/helpers/main";
 
 export default async function OG({
   hit,
