@@ -38,13 +38,13 @@ export default async function OGGenerationModel({
           background:
             "linear-gradient(0deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.6) 25%, rgba(0,0,0,0) 50%)",
         }}
-        tw="w-full h-full absolute left-0 top-0 flex items-end justify-between px-16 py-9"
+        tw="w-full h-full absolute left-0 top-0 flex items-end justify-between px-14 py-7"
       >
         <div tw="flex flex-col items-start justify-start">
-          <p tw="font-medium text-3xl">Generate with</p>
-          <p tw="font-bold text-6xl -mt-8">{model.name_in_worker}</p>
+          <p tw="font-medium text-4xl">Generate with</p>
+          <p tw="font-bold text-7xl -mt-9">{model.name_in_worker}</p>
         </div>
-        <div tw="flex items-end justify-end pb-5">
+        <div tw="flex items-end justify-end pb-6">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="271"
