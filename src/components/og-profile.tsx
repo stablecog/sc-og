@@ -1,7 +1,3 @@
-// @ts-ignore
-import { TGalleryGenerationHit } from "../ts/types/gallery";
-import { getImgProxySrc } from "./helpers";
-
 export default async function OGProfile({
   width,
   height,

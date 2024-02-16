@@ -1,7 +1,7 @@
 import { ImageResponse } from "@vercel/og";
-import { NextRequest, NextResponse } from "next/server";
-import cors from "@/ts/constants/cors";
-import OGProfile from "@/components/og-profile";
+import { NextResponse } from "next/server";
+import cors from "@ts/constants/cors";
+import OGProfile from "@components/og-profile";
 
 export const runtime = "edge";
 

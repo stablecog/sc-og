@@ -2,7 +2,7 @@ import {
   cleanText,
   monotoneCubicInterpolation,
   normalizeArray,
-} from "./helpers";
+} from "@ts/helpers/main";
 
 export default async function OG({
   speakerImageUrl,
