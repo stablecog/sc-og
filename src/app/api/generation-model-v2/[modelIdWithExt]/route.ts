@@ -1,8 +1,8 @@
 import { ImageResponse } from "next/og";
 import { NextResponse } from "next/server";
-import cors from "@ts/constants/cors";
-import { getGenerationModel } from "@ts/helpers/getGenerationModel";
-import OGGenerationModel from "@components/og-generation-model";
+import cors from "@/ts/constants/cors";
+import { getGenerationModel } from "@/ts/helpers/getGenerationModel";
+import OGGenerationModel from "@/components/og-generation-model";
 
 export const runtime = "edge";
 

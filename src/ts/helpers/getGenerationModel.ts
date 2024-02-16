@@ -1,4 +1,4 @@
-import { supabaseAdmin } from "@ts/constants/supabaseAdmin";
+import { supabaseAdmin } from "@/ts/constants/supabaseAdmin";
 
 export async function getGenerationModel(id: string) {
   if (!supabaseAdmin) {

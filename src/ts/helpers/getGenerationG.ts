@@ -37,14 +37,14 @@ export async function getGenerationG(id: string) {
       image_id: data.image_id,
       created_at: data.created_at,
       updated_at: data.updated_at,
-      prompt: data.prompt as { id: string; text: string },
-      negative_prompt: (data.negative_prompt as {
+      prompt: data.prompt as unknown as { id: string; text: string },
+      negative_prompt: (data.negative_prompt as unknown as {
         id: string;
         text: string;
       } | null)
-        ? (data.negative_prompt as { id: string; text: string })
+        ? (data.negative_prompt as unknown as { id: string; text: string })
         : null,
-      model: data.model as { id: string; name: string },
+      model: data.model as unknown as { id: string; name: string },
     };
     return { data: generation, error: null };
   }

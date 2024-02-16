@@ -1,4 +1,4 @@
-import { TGenerationModel } from "@ts/helpers/getGenerationModel";
+import { TGenerationModel } from "@/ts/helpers/getGenerationModel";
 
 function toSlug(input: string): string {
   return input

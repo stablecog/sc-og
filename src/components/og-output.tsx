@@ -1,8 +1,7 @@
-// @ts-ignore
-import { TGalleryGenerationHit } from "@ts/types/gallery";
-import { getImgProxySrc } from "@components/helpers";
+import { getImgProxySrc } from "@/ts/helpers/getImgProxySrc";
+import { TGalleryGenerationHit } from "@/ts/types/gallery";
 
-export default async function OG({
+export default async function OGOutput({
   hit,
   width,
   height,

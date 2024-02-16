@@ -1,9 +1,10 @@
 import { ImageResponse } from "@vercel/og";
-import OG from "@components/og-voiceover";
-import cors from "@ts/constants/cors";
-import { supabaseAdmin } from "@ts/constants/supabaseAdmin";
+import OG from "@/components/og-voiceover";
+import cors from "@/ts/constants/cors";
+import { supabaseAdmin } from "@/ts/constants/supabaseAdmin";
 import { Base64 } from "js-base64";
-import { getImgProxySrc, getSpeakerImageUrl } from "@components/helpers";
+import { getImgProxySrc } from "@/ts/helpers/getImgProxySrc";
+import { getSpeakerImageUrl } from "@/ts/helpers/voiceover";
 
 export const runtime = "edge";
 

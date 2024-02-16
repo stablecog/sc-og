@@ -1,8 +1,8 @@
 import { ImageResponse } from "next/og";
 import { NextResponse } from "next/server";
-import OGV2 from "@components/og-v2";
-import cors from "@ts/constants/cors";
-import { getOutput } from "@ts/helpers/getOutput";
+import OGOutput from "@/components/og-output";
+import cors from "@/ts/constants/cors";
+import { getOutput } from "@/ts/helpers/getOutput";
 
 export const runtime = "edge";
 
@@ -50,7 +50,7 @@ export async function GET(req: Request) {
   if (error) return new Response(error, { status: 500 });
   if (!hit) return new Response("Not found", { status: 404 });
   const response = new ImageResponse(
-    await OGV2({ hit, width, height, username }),
+    await OGOutput({ hit, width, height, username }),
     {
       width,
       height,
