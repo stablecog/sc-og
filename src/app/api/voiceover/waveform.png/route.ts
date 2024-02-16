@@ -1,41 +1,35 @@
 import { ImageResponse } from "@vercel/og";
-import { NextRequest } from "next/server";
-import OG from "../../../lib/components/og-voiceover";
-import cors from "../../../lib/ts/constants/cors";
-import { supabaseAdmin } from "../../../lib/ts/constants/supabaseAdmin";
+import OG from "@components/og-voiceover";
+import cors from "@ts/constants/cors";
+import { supabaseAdmin } from "@ts/constants/supabaseAdmin";
 import { Base64 } from "js-base64";
-import {
-  getImgProxySrc,
-  getSpeakerImageUrl,
-} from "../../../lib/components/helpers";
+import { getImgProxySrc, getSpeakerImageUrl } from "@components/helpers";
 
-export const config = {
-  runtime: "experimental-edge",
-};
+export const runtime = "edge";
 
 const width = 1200;
 const height = 480;
 
 const font400 = fetch(
   new URL(
-    "../../../public/fonts/avenir-next/avenir-next-400.ttf",
+    `../../../../../assets/fonts/avenir-next/avenir-next-400.ttf`,
     import.meta.url
   )
 ).then((res) => res.arrayBuffer());
 const font500 = fetch(
   new URL(
-    "../../../public/fonts/avenir-next/avenir-next-500.ttf",
+    `../../../../../assets/fonts/avenir-next/avenir-next-500.ttf`,
     import.meta.url
   )
 ).then((res) => res.arrayBuffer());
 const font700 = fetch(
   new URL(
-    "../../../public/fonts/avenir-next/avenir-next-700.ttf",
+    `../../../../../assets/fonts/avenir-next/avenir-next-700.ttf`,
     import.meta.url
   )
 ).then((res) => res.arrayBuffer());
 
-export default async function handler(req: NextRequest) {
+export async function GET(req: Request) {
   const [fontData400, fontData500, fontData700] = await Promise.all([
     font400,
     font500,
@@ -111,6 +105,6 @@ export default async function handler(req: NextRequest) {
         },
       ],
     }
-  ) as Response;
+  );
   return cors(req, response);
 }

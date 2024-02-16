@@ -1,36 +1,34 @@
-import { ImageResponse } from "@vercel/og";
-import { NextRequest, NextResponse } from "next/server";
-import OG from "../../../../lib/components/og";
-import cors from "../../../../lib/ts/constants/cors";
-import { getGenerationG } from "../../../../lib/ts/helpers/getGenerationG";
+import { ImageResponse } from "next/og";
+import { NextResponse } from "next/server";
+import OGV2 from "@components/og-v2";
+import cors from "@ts/constants/cors";
+import { getOutput } from "@ts/helpers/getOutput";
 
-export const config = {
-  runtime: "experimental-edge",
-};
+export const runtime = "edge";
 
 const width = 1200;
 const height = 630;
 
 const font400 = fetch(
   new URL(
-    "../../../../public/fonts/avenir-next/avenir-next-400.ttf",
+    "../../../../../../assets/fonts/avenir-next/avenir-next-400.ttf",
     import.meta.url
   )
 ).then((res) => res.arrayBuffer());
 const font500 = fetch(
   new URL(
-    "../../../../public/fonts/avenir-next/avenir-next-500.ttf",
+    "../../../../../../assets/fonts/avenir-next/avenir-next-500.ttf",
     import.meta.url
   )
 ).then((res) => res.arrayBuffer());
 const font700 = fetch(
   new URL(
-    "../../../../public/fonts/avenir-next/avenir-next-700.ttf",
+    "../../../../../../assets/fonts/avenir-next/avenir-next-700.ttf",
     import.meta.url
   )
 ).then((res) => res.arrayBuffer());
 
-export default async function handler(req: NextRequest) {
+export async function GET(req: Request) {
   const start = Date.now();
   const [fontData400, fontData500, fontData700] = await Promise.all([
     font400,
@@ -44,10 +42,10 @@ export default async function handler(req: NextRequest) {
   }
   const split = idWithExt.split(".");
   const id = split[0];
-  const { data: generation, error } = await getGenerationG(id);
+  const { data: hit, error } = await getOutput(id);
   if (error) return new Response(error, { status: 500 });
-  if (!generation) return new Response("No generation found", { status: 404 });
-  const response = new ImageResponse(await OG({ generation, width, height }), {
+  if (!hit) return new Response("Not found", { status: 404 });
+  const response = new ImageResponse(await OGV2({ hit, width, height }), {
     width,
     height,
     fonts: [
@@ -70,8 +68,8 @@ export default async function handler(req: NextRequest) {
         weight: 700,
       },
     ],
-  }) as Response;
+  });
   const end = Date.now();
-  console.log(`-- OG image for "${generation.id}" in: ${end - start}ms --`);
+  console.log(`-- OG image for "${hit.id}" in: ${end - start}ms --`);
   return cors(req, response);
 }

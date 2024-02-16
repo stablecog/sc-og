@@ -1,35 +1,34 @@
-import { ImageResponse } from "@vercel/og";
-import { NextRequest, NextResponse } from "next/server";
-import cors from "../../../../lib/ts/constants/cors";
-import OGProfile from "../../../../lib/components/og-profile";
+import { ImageResponse } from "next/og";
+import { NextResponse } from "next/server";
+import cors from "@ts/constants/cors";
+import { getGenerationModel } from "@ts/helpers/getGenerationModel";
+import OGGenerationModel from "@components/og-generation-model";
 
-export const config = {
-  runtime: "experimental-edge",
-};
+export const runtime = "edge";
 
 const width = 1200;
 const height = 630;
 
 const font400 = fetch(
   new URL(
-    "../../../../public/fonts/avenir-next/avenir-next-400.ttf",
+    "../../../../../assets/fonts/avenir-next/avenir-next-400.ttf",
     import.meta.url
   )
 ).then((res) => res.arrayBuffer());
 const font500 = fetch(
   new URL(
-    "../../../../public/fonts/avenir-next/avenir-next-500.ttf",
+    "../../../../../assets/fonts/avenir-next/avenir-next-500.ttf",
     import.meta.url
   )
 ).then((res) => res.arrayBuffer());
 const font700 = fetch(
   new URL(
-    "../../../../public/fonts/avenir-next/avenir-next-700.ttf",
+    "../../../../../assets/fonts/avenir-next/avenir-next-700.ttf",
     import.meta.url
   )
 ).then((res) => res.arrayBuffer());
 
-export default async function handler(req: NextRequest) {
+export async function GET(req: Request) {
   const start = Date.now();
   const [fontData400, fontData500, fontData700] = await Promise.all([
     font400,
@@ -37,12 +36,18 @@ export default async function handler(req: NextRequest) {
     font700,
   ]);
   const { searchParams } = new URL(req.url);
-  const username = searchParams.get("username");
-  if (!username) {
+  const modelIdWithExt = searchParams.get("modelIdWithExt");
+  if (!modelIdWithExt) {
     return new NextResponse("Not found", { status: 400 });
   }
+  const split = modelIdWithExt.split(".");
+  const id = split[0];
+  const { data: generationModel, error } = await getGenerationModel(id);
+  if (error) return new Response(error, { status: 500 });
+  if (!generationModel)
+    return new Response("No generation model found", { status: 404 });
   const response = new ImageResponse(
-    await OGProfile({ width, height, username }),
+    await OGGenerationModel({ model: generationModel, width, height }),
     {
       width,
       height,
@@ -67,8 +72,10 @@ export default async function handler(req: NextRequest) {
         },
       ],
     }
-  ) as Response;
+  );
   const end = Date.now();
-  console.log(`-- OG image for "@${username}" in: ${end - start}ms --`);
+  console.log(
+    `-- OG image for model "${generationModel.id}" in: ${end - start}ms --`
+  );
   return cors(req, response);
 }
