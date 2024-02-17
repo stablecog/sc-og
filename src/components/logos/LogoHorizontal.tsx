@@ -10,8 +10,8 @@ export default function LogoHorizontal({ width = 271 }: { width?: number }) {
       xmlns="http://www.w3.org/2000/svg"
       width={finalWidth}
       height={finalHeight}
-      fill="none"
       viewBox={`0 0 ${baseWidth} ${baseHeight}`}
+      fill="none"
     >
       <path
         fill="url(#a)"
