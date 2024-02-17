@@ -1,12 +1,12 @@
+import { goApiUrl } from "@/ts/constants/main";
 import {
   TGalleryGenerationFullOutputPageRes,
   TGalleryGenerationHit,
 } from "../types/gallery";
 
 export async function getOutput(id: string, username?: string) {
-  const apiUrl = process.env.PUBLIC_GO_API_URL;
   let hit: TGalleryGenerationHit | undefined = undefined;
-  const url = `${apiUrl}/v1/${
+  const url = `${goApiUrl}/v1/${
     username ? `profile/${username}/outputs` : `gallery`
   }?output_id=${id}`;
   console.log("Url is:", url);

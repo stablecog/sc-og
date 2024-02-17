@@ -1,6 +1,6 @@
 import { Base64 } from "js-base64";
 
-type TImgProxyPreset =
+export type TImgProxyPreset =
   | "32w"
   | "64w"
   | "76w"
