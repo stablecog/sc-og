@@ -11,7 +11,7 @@ export default function LogoHorizontal({ width = 271 }: { width?: number }) {
       width={finalWidth}
       height={finalHeight}
       fill="none"
-      viewBox="0 0 271 54"
+      viewBox={`0 0 ${baseWidth} ${baseHeight}`}
     >
       <path
         fill="url(#a)"
