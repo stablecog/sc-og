@@ -60,7 +60,13 @@ export async function GET(req: Request) {
     usernameFilters,
   } = getGalleryLikeParamsFromSearchParams(searchParams);
 
-  if (!searchString) {
+  if (
+    !searchString &&
+    !aspectRatioFilters &&
+    !modelIdFilters &&
+    !sorts &&
+    !usernameFilters
+  ) {
     return defaultResponse(req);
   }
 
