@@ -42,7 +42,12 @@ export async function getGalleryImages({
     query.append("model_ids", model_ids.join(","));
   }
   if (aspect_ratios && aspect_ratios.length > 0) {
-    query.append("aspect_ratio", aspect_ratios.join(","));
+    query.append(
+      "aspect_ratio",
+      aspect_ratios
+        .map((i) => i.replaceAll(".", "_").replaceAll(":", "-"))
+        .join(",")
+    );
   }
   if (username_filters && username_filters.length > 0) {
     query.append("username", username_filters.join(","));
@@ -52,7 +57,6 @@ export async function getGalleryImages({
   }
   let queryString = query.toString();
   if (queryString) queryString = `?${queryString}`;
-  console.log(queryString);
   const url = `${goApiUrl}/v1/gallery${queryString}`;
   let headers: Record<string, string> = {
     "Content-Type": "application/json",
@@ -107,13 +111,13 @@ export function getGalleryLikeParamsFromSearchParams(
 }
 
 const availableAspectRatios = [
-  "1-1",
-  "4-5",
-  "2-3",
-  "3-2",
-  "9-16",
-  "16-9",
-  "2_4-1",
+  "1:1",
+  "4:5",
+  "2:3",
+  "3:2",
+  "9:16",
+  "16:9",
+  "2.4:1",
 ] as const;
 
 type TAvailableGenerationModelId = string;
