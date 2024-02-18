@@ -1,5 +1,4 @@
-import LogoHorizontal from "@/components/logos/LogoHorizontal";
-import LogoVertical from "@/components/logos/LogoVertical";
+import LogoMark from "@/components/logos/LogoMark";
 import { TImage } from "@/ts/types/gallery";
 
 export default async function OGGalleryGrid({
@@ -98,9 +97,18 @@ export default async function OGGalleryGrid({
                       width: imageContainer.width,
                       height: imageContainer.height,
                     }}
-                    tw="flex items-center justify-center"
+                    tw="flex flex-col items-center justify-center text-center pt-5"
                   >
-                    <LogoVertical width={180} />
+                    <LogoMark width={112} />
+                    <p
+                      style={{
+                        fontSize: 48,
+                        marginTop: 2,
+                      }}
+                      tw="font-bold"
+                    >
+                      Gallery
+                    </p>
                   </div>
                 );
               }

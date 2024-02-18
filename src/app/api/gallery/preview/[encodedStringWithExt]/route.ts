@@ -2,6 +2,7 @@ import { ImageResponse } from "next/og";
 import OGGallery from "@/components/og-gallery";
 import cors from "@/ts/constants/cors";
 import {
+  SORTS_DEFAULT_ARRAY,
   getGalleryImages,
   getGalleryLikeParamsFromSearchParams,
 } from "@/ts/helpers/getGalleryImages";
@@ -62,11 +63,11 @@ export async function GET(req: Request) {
   } = getGalleryLikeParamsFromSearchParams(searchParams);
 
   if (
-    !searchString &&
-    !aspectRatioFilters &&
-    !modelIdFilters &&
-    !sorts &&
-    !usernameFilters
+    searchString === "" &&
+    aspectRatioFilters.length === 0 &&
+    modelIdFilters.length === 0 &&
+    (sorts.length === 0 || sorts === SORTS_DEFAULT_ARRAY) &&
+    usernameFilters.length === 0
   ) {
     return defaultResponse(req);
   }

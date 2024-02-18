@@ -9,6 +9,7 @@ const SEARCH_SCORE_THRESHOLD_DEFAULT = 50;
 const PER_PAGE_DEFAULT = 10;
 const OVERSAMPLING_DEFAULT = 50;
 const SORTS_DEFAULT = "new";
+export const SORTS_DEFAULT_ARRAY = [SORTS_DEFAULT];
 
 export async function getGalleryImages({
   search,
@@ -100,7 +101,7 @@ export function getGalleryLikeParamsFromSearchParams(
   const usernameFiltersQuery = searchParams.get("un");
   const usernameFilters = usernameFiltersQuery?.split(",") || [];
   const sortsQuery = searchParams.get("sort");
-  const sorts = sortsQuery ? sortsQuery.split(",") : [SORTS_DEFAULT];
+  const sorts = sortsQuery ? sortsQuery.split(",") : SORTS_DEFAULT_ARRAY;
   return {
     modelIdFilters: filteredModelIds,
     aspectRatioFilters: filteredAspectRatioFilters,
