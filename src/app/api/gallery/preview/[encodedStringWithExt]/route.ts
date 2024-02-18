@@ -14,7 +14,7 @@ export const runtime = "edge";
 const width = 1200;
 const height = 630;
 
-const gridCols = 4;
+const gridCols = 5;
 const gridRows = 2;
 const imgProxyPreset: TImgProxyPreset = "256w";
 const numImages = gridCols * gridRows;

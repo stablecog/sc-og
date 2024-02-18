@@ -15,7 +15,7 @@ export default async function OGGalleryGrid({
   gridRows: number;
 }) {
   const imageContainerPadding = 4;
-  const mainContainerPadding = 20;
+  const mainContainerPadding = 16;
   const mainContainer = {
     width: width - mainContainerPadding * 2,
     height: height - mainContainerPadding * 2,
@@ -97,13 +97,13 @@ export default async function OGGalleryGrid({
                       width: imageContainer.width,
                       height: imageContainer.height,
                     }}
-                    tw="flex flex-col items-center justify-center text-center pt-5"
+                    tw="flex flex-col items-center justify-center text-center pt-5.5"
                   >
                     <LogoMark width={112} />
                     <p
                       style={{
-                        fontSize: 48,
-                        marginTop: 2,
+                        fontSize: 40,
+                        marginTop: 8,
                       }}
                       tw="font-bold"
                     >
