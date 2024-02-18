@@ -46,7 +46,9 @@ export async function GET(req: Request) {
   ]);
   let { searchParams } = new URL(req.url);
   const encodedStringWithExt = searchParams.get("encodedStringWithExt");
-  if (!encodedStringWithExt) return defaultResponse(req);
+  if (!encodedStringWithExt || encodedStringWithExt === "main.png") {
+    return defaultResponse(req);
+  }
   const encodedString = encodedStringWithExt.split(".")[0];
   if (!encodedString) return defaultResponse(req);
   searchParams = base64ToSearchParams(encodedString);
