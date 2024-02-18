@@ -10,13 +10,10 @@ export default async function OGProfile({
   username?: string;
 }) {
   const bgColor = "rgb(18, 18, 23)";
-  const shadowColor = "rgba(0, 0, 4, 0.3)";
   const onBgColor = "rgb(220, 220, 234)";
-  const bgSecondaryColor = "rgb(28, 28, 35)";
   const dotColor = "rgba(220, 220, 234, 0.03)";
   const dotDistance = 42;
   const dotSizePercent = 5;
-  const ringWidth = 5;
 
   return (
     <div
@@ -31,8 +28,10 @@ export default async function OGProfile({
         `,
         backgroundSize: `${dotDistance}px ${dotDistance}px`,
         position: "relative",
+        width,
+        height,
       }}
-      tw="flex flex-col w-full h-full items-center justify-between relative"
+      tw="flex flex-col items-center justify-between relative"
     >
       <div style={{ paddingTop: "4.5rem" }} tw="flex flex-col items-center">
         <LogoHorizontal width={233} />

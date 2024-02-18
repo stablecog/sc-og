@@ -40,7 +40,7 @@ export default async function OGOutput({
   const containerWidth = width - 2 * padding - imageContainerWidth;
 
   const bgColor = "rgb(18, 18, 23)";
-  const shadowColor = "rgba(0, 0, 4, 0.3)";
+  const shadowColor = "rgba(0, 0, 4, 0.4)";
   const onBgColor = "rgb(220, 220, 234)";
   const bgSecondaryColor = "rgb(28, 28, 35)";
   const dotColor = "rgba(220, 220, 234, 0.03)";

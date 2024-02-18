@@ -15,13 +15,23 @@ export default async function OGGalleryGrid({
   gridCols: number;
   gridRows: number;
 }) {
-  const imageContainer = {
-    width: width / gridCols,
-    height: height / gridRows,
+  const imageContainerPadding = 10;
+  const mainContainerPadding = 14;
+  const mainContainer = {
+    width: width - mainContainerPadding * 2,
+    height: height - mainContainerPadding * 2,
   };
-  const imageContainerMax = Math.max(
-    imageContainer.width,
-    imageContainer.height
+  const imageContainer = {
+    width: mainContainer.width / gridCols,
+    height: mainContainer.height / gridRows,
+  };
+  const imageInnerContainer = {
+    width: imageContainer.width - imageContainerPadding * 2,
+    height: imageContainer.height - imageContainerPadding * 2,
+  };
+  const imageInnerContainerMax = Math.max(
+    imageInnerContainer.width,
+    imageInnerContainer.height
   );
   const imageGrid = images.reduce((acc, item, i) => {
     const row = Math.floor(i / gridCols);
@@ -32,16 +42,20 @@ export default async function OGGalleryGrid({
     return acc;
   }, [] as TImage[][]);
 
-  const bgFadedColor = "rgba(18, 18, 23, 1)";
   const bgColor = "rgb(18, 18, 23)";
   const onBgColor = "rgb(220, 220, 234)";
   const dotColor = "rgba(220, 220, 234, 0.03)";
   const dotDistance = 42;
   const dotSizePercent = 5;
+  const bgSecondaryColor = "rgb(28, 28, 35)";
+  const ringWidth = 4;
+  const shadowColor = "rgba(0, 0, 4, 0.4)";
 
   return (
     <div
       style={{
+        width,
+        height,
         background: bgColor,
         color: onBgColor,
         backgroundImage: `
@@ -54,50 +68,73 @@ export default async function OGGalleryGrid({
       }}
       tw="flex flex-col items-center justify-center"
     >
-      {imageGrid.map((row, i) => (
-        <div tw="w-full flex" key={i}>
-          {row.map((item, j) => {
-            const aspectRatio = item.width / item.height;
-            let imageHeight: number;
-            let imageWidth: number;
-            if (aspectRatio >= 1) {
-              imageHeight = imageContainerMax;
-              imageWidth = imageHeight * aspectRatio;
-            } else {
-              imageWidth = imageContainerMax;
-              imageHeight = imageWidth / aspectRatio;
-            }
-            const isLastImage =
-              i === imageGrid.length - 1 && j === row.length - 1;
+      <div
+        style={{
+          width: mainContainer.width,
+          height: mainContainer.height,
+        }}
+        tw="flex flex-col items-center justify-center"
+      >
+        {imageGrid.map((row, i) => (
+          <div tw="w-full flex" key={i}>
+            {row.map((item, j) => {
+              const aspectRatio = item.width / item.height;
+              let imageHeight: number;
+              let imageWidth: number;
+              if (aspectRatio >= 1) {
+                imageHeight = imageInnerContainerMax;
+                imageWidth = imageHeight * aspectRatio;
+              } else {
+                imageWidth = imageInnerContainerMax;
+                imageHeight = imageWidth / aspectRatio;
+              }
+              const isLastImage =
+                i === imageGrid.length - 1 && j === row.length - 1;
 
-            if (isLastImage) {
+              if (isLastImage) {
+                return (
+                  <div
+                    style={{
+                      width: imageContainer.width,
+                      height: imageContainer.height,
+                    }}
+                    tw="flex items-center justify-center"
+                  >
+                    <LogoVertical width={180} />
+                  </div>
+                );
+              }
               return (
                 <div
+                  key={j}
                   style={{
                     width: imageContainer.width,
                     height: imageContainer.height,
                   }}
-                  tw="flex items-center justify-center"
+                  tw={`flex justify-center items-center relative`}
                 >
-                  <LogoVertical width={180} />
+                  <div
+                    tw="flex justify-center items-center overflow-hidden relative"
+                    style={{
+                      width: imageInnerContainer.width,
+                      height: imageInnerContainer.height,
+                      background: bgSecondaryColor,
+                      borderRadius: 16,
+                      boxShadow: `0px 0px 0px ${ringWidth}px ${bgSecondaryColor}, 0px 12px 36px 0px ${shadowColor}`,
+                    }}
+                  >
+                    <img
+                      src={item.url}
+                      width={imageWidth}
+                      height={imageHeight}
+                    />
+                  </div>
                 </div>
               );
-            }
-            return (
-              <div
-                key={j}
-                style={{
-                  width: imageContainer.width,
-                  height: imageContainer.height,
-                }}
-                tw={`flex justify-center overflow-hidden relative items-center`}
-              >
-                <img src={item.url} width={imageWidth} height={imageHeight} />
-              </div>
-            );
-          })}
-        </div>
-      ))}
+            })}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

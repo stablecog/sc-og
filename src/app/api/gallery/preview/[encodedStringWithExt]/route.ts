@@ -1,5 +1,4 @@
 import { ImageResponse } from "next/og";
-import { NextResponse } from "next/server";
 import OGGallery from "@/components/og-gallery";
 import cors from "@/ts/constants/cors";
 import {
