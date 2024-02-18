@@ -15,8 +15,8 @@ export default async function OGGalleryGrid({
   gridCols: number;
   gridRows: number;
 }) {
-  const imageContainerPadding = 10;
-  const mainContainerPadding = 14;
+  const imageContainerPadding = 4;
+  const mainContainerPadding = 20;
   const mainContainer = {
     width: width - mainContainerPadding * 2,
     height: height - mainContainerPadding * 2,
@@ -33,6 +33,7 @@ export default async function OGGalleryGrid({
     imageInnerContainer.width,
     imageInnerContainer.height
   );
+  const imageInnerContainerBorderRadius = 22;
   const imageGrid = images.reduce((acc, item, i) => {
     const row = Math.floor(i / gridCols);
     if (!acc[row]) {
@@ -49,7 +50,6 @@ export default async function OGGalleryGrid({
   const dotSizePercent = 5;
   const bgSecondaryColor = "rgb(28, 28, 35)";
   const ringWidth = 4;
-  const shadowColor = "rgba(0, 0, 4, 0.4)";
 
   return (
     <div
@@ -119,8 +119,8 @@ export default async function OGGalleryGrid({
                       width: imageInnerContainer.width,
                       height: imageInnerContainer.height,
                       background: bgSecondaryColor,
-                      borderRadius: 16,
-                      boxShadow: `0px 0px 0px ${ringWidth}px ${bgSecondaryColor}, 0px 12px 36px 0px ${shadowColor}`,
+                      borderRadius: imageInnerContainerBorderRadius,
+                      border: `${ringWidth}px solid ${bgSecondaryColor}`,
                     }}
                   >
                     <img
