@@ -111,13 +111,13 @@ export function getGalleryLikeParamsFromSearchParams(
 }
 
 const availableAspectRatios = [
-  "1:1",
-  "4:5",
-  "2:3",
-  "3:2",
-  "9:16",
-  "16:9",
-  "2.4:1",
+  "1-1",
+  "4-5",
+  "2-3",
+  "3-2",
+  "9-16",
+  "16-9",
+  "2_4-1",
 ] as const;
 
 type TAvailableGenerationModelId = string;
