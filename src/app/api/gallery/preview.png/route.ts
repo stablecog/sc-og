@@ -2,7 +2,10 @@ import { ImageResponse } from "next/og";
 import { NextResponse } from "next/server";
 import OGGallery from "@/components/og-gallery";
 import cors from "@/ts/constants/cors";
-import { getGalleryImages } from "@/ts/helpers/getGalleryImages";
+import {
+  getGalleryImages,
+  getGalleryLikeParamsFromSearchParams,
+} from "@/ts/helpers/getGalleryImages";
 import { TImgProxyPreset } from "@/ts/helpers/getImgProxySrc";
 
 export const runtime = "edge";
@@ -42,13 +45,23 @@ export async function GET(req: Request) {
     font700,
   ]);
   const { searchParams } = new URL(req.url);
-  const query = searchParams.get("q");
-  if (!query) {
+  const {
+    searchString,
+    aspectRatioFilters,
+    modelIdFilters,
+    sorts,
+    usernameFilters,
+  } = getGalleryLikeParamsFromSearchParams(searchParams);
+  if (!searchString) {
     return defaultResponse(req);
   }
   try {
     const images = await getGalleryImages({
-      search: query,
+      search: searchString,
+      aspect_ratios: aspectRatioFilters,
+      model_ids: modelIdFilters,
+      sorts,
+      username_filters: usernameFilters,
       per_page: numImages,
       imgProxyPreset,
     });
@@ -84,7 +97,7 @@ export async function GET(req: Request) {
     );
     const end = Date.now();
     console.log(
-      `-- OG image for search query "${query}" in: ${end - start}ms --`
+      `-- OG image for search query "${searchString}" in: ${end - start}ms --`
     );
     return cors(req, response);
   } catch {
