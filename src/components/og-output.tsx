@@ -101,7 +101,7 @@ export default async function OGOutput({
           />
         </div>
         <div
-          tw="flex flex-row overflow-hidden items-center justify-start pl-15 pr-24"
+          tw="flex flex-row overflow-hidden items-center justify-start pl-18 pr-24"
           style={{ width: rightContainerWidth, height: mainContainer.height }}
         >
           <div tw="w-full h-full flex flex-col justify-center">
