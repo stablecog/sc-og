@@ -36,6 +36,7 @@ export async function getGalleryImages({
   const query = new URLSearchParams();
   query.append("per_page", per_page.toString());
   query.append("oversampling", oversampling.toString());
+
   if (search && search !== "") {
     query.append("search", search);
     query.append("score_threshold", search_score_threshold.toString());
