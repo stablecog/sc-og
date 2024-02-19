@@ -111,8 +111,8 @@ export default async function OGOutput({
                   <LogoMark width={72} />
                 </div>
               )}
-              <h1 tw="font-bold text-7xl ml-4 -mt-6">
-                {username && <span tw="-ml-4 opacity-50 font-semibold">@</span>}
+              <h1 tw="font-bold text-7xl ml-5 -mt-6">
+                {username && <span tw="-ml-5 opacity-50 font-semibold">@</span>}
                 {username ? username : "Gallery"}
               </h1>
             </div>
