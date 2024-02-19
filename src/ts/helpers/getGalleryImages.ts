@@ -124,52 +124,66 @@ const availableAspectRatios = [
 type TAvailableGenerationModelId = string;
 type TAvailableAspectRatio = (typeof availableAspectRatios)[number];
 
-const generationModels: {
+export const generationModels: {
   [key: string]: {
     name: string;
+    shortName: string;
     active?: boolean;
   };
 } = {
   "b6c1372f-31a7-457c-907c-d292a6ffef97": {
     name: "Luna Diffusion",
+    shortName: "Luna D.",
   },
   "fc06f6ab-ed14-4186-a7c0-aaec288d4f38": {
     name: "22h Diffusion",
+    shortName: "22h D.",
   },
   "f7f3d973-ac6f-4a7a-9db8-e89e4fba03a9": {
     name: "Waifu Diffusion",
+    shortName: "Waifu D.",
   },
   "8acfe4c8-751d-4aa6-8c3c-844e3ef478e0": {
     name: "Openjourney",
+    shortName: "Openjourney",
   },
   "eaa438e1-dbf9-48fd-be71-206f0f257617": {
     name: "Redshift Diffusion",
+    shortName: "Redshift D.",
   },
   "8002bc51-7260-468f-8840-cf1e6dbe3f8a": {
     name: "SDXL",
+    shortName: "SDXL",
   },
   "22b0857d-7edc-4d00-9cd9-45aa509db093": {
     name: "Kandinsky",
+    shortName: "Kandinsky",
   },
   "9fa49c00-109d-430f-9ddd-449f02e2c71a": {
     name: "Kandinsky 2.2",
+    shortName: "Kandinsky 2.2",
   },
   "3fb1f6d9-c0d3-4ae4-adf4-77f8da78a6f7": {
     name: "Waifu Diffusion XL",
+    shortName: "Waifu D. XL",
   },
   "048b4aa3-5586-47ed-900f-f4341c96bdb2": {
     name: "Stable Diffusion v1.5",
+    shortName: "SD v1.5",
     active: false,
   },
   "48a7031d-43b6-4a23-9f8c-8020eb6862e4": {
     name: "Ghibli Diffusion",
+    shortName: "Ghibli D.",
     active: false,
   },
   "36d9d835-646f-4fc7-b9fe-98654464bf8e": {
     name: "Arcane Diffusion",
+    shortName: "Arcane D.",
   },
   "4e54440f-ee17-4712-b4b6-0671b94d685d": {
     name: "SSD-1B",
+    shortName: "SSD-1B",
   },
 } as const;
 

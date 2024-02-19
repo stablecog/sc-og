@@ -1,4 +1,5 @@
 import LogoMark from "@/components/logos/LogoMark";
+import { generationModels } from "@/ts/helpers/getGalleryImages";
 import { getImgProxySrc } from "@/ts/helpers/getImgProxySrc";
 import { TGalleryGenerationHit } from "@/ts/types/gallery";
 
@@ -28,9 +29,9 @@ export default async function OGOutput({
     extention: "png",
   });
 
-  const maxPromptLength = 125;
+  const maxPromptLength = 120;
   const rootContainerPadding = 24;
-  const maxAspectRatio = 0.85;
+  const maxAspectRatio = 0.7;
   const imageContainerBorderRadius = 26;
 
   const mainContainer = {
@@ -116,18 +117,46 @@ export default async function OGOutput({
                 {username ? username : "Gallery"}
               </h1>
             </div>
-            <p
-              style={{
-                lineHeight: 1,
-              }}
-              tw="w-full flex font-medium flex-wrap break-words text-4xl opacity-75 mt-0"
-            >
-              {`${hit.prompt_text.slice(0, maxPromptLength)}${
-                hit.prompt_text.length > maxPromptLength ? "..." : ""
-              }`}
-            </p>
+            <div tw="w-full flex overflow-hidden">
+              <div tw="w-full flex pr-1">
+                <p
+                  style={{
+                    lineHeight: 1,
+                    maxHeight: 210,
+                  }}
+                  tw="w-full flex font-medium flex-wrap break-words text-4xl opacity-75 mt-0"
+                >
+                  {`${hit.prompt_text.slice(0, maxPromptLength)}${
+                    hit.prompt_text.length > maxPromptLength ? "..." : ""
+                  }`}
+                </p>
+              </div>
+            </div>
             <div tw="w-full flex mt-4.5">
-              <div tw="flex items-center mr-10">
+              <div tw="flex items-center mr-12">
+                <svg
+                  style={{
+                    width: 36,
+                    height: 36,
+                  }}
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M9.13.5a4.8 4.8 0 0 0-4.57 3.34 5.27 5.27 0 0 0-2.82 6.51 5.73 5.73 0 0 0 1.68 8.57A5.27 5.27 0 0 0 12 22.3a5.25 5.25 0 0 0 8.58-3.38 5.75 5.75 0 0 0 1.68-8.57 5.27 5.27 0 0 0-2.82-6.5A4.8 4.8 0 0 0 12 1.44C11.2.86 10.2.5 9.12.5ZM6.3 4.74a2.88 2.88 0 0 1 4.03-2.06c.5.23.71.78.71 1.33V19.79c0 .5-.18 1-.6 1.28A3.35 3.35 0 0 1 5.3 18.3l-.02-.62-.56-.25a3.83 3.83 0 0 1-1.46-5.9h2.03c.53 0 .96.42.96.95v.73a1.92 1.92 0 1 0 1.92 0v-.73A2.87 2.87 0 0 0 5.29 9.6H3.51a3.36 3.36 0 0 1 2.16-4.14l.53-.17.1-.55Zm6.66 12.05h1.91a2.88 2.88 0 0 0 2.88-2.87v-3.13a1.92 1.92 0 1 0-1.92 0v3.13c0 .53-.43.96-.96.96h-1.91V4c0-.55.22-1.1.71-1.33a2.86 2.86 0 0 1 4.03 2.06l.1.55.53.17a3.36 3.36 0 0 1 1.96 4.66l-.3.61.48.48a3.82 3.82 0 0 1-1.19 6.22l-.56.25-.01.61a3.35 3.35 0 0 1-5.14 2.78c-.43-.27-.61-.77-.61-1.28v-3Z"
+                    fill={onBgColor}
+                  />
+                </svg>
+                <p tw="font-bold text-4xl mt-0.5 ml-3">
+                  {generationModels[hit.model_id].shortName}
+                </p>
+              </div>
+              {/* <div tw="flex items-center mr-12">
                 <svg
                   style={{
                     width: 36,
@@ -146,11 +175,11 @@ export default async function OGOutput({
                     fill={onBgColor}
                   />
                 </svg>
-                <p tw="font-bold text-4xl mt-0.5 ml-2">
+                <p tw="font-bold text-4xl mt-0.5 ml-3">
                   {Math.round(hit.guidance_scale)}
                 </p>
-              </div>
-              <div tw="flex items-center mr-10">
+              </div> */}
+              {/* <div tw="flex items-center mr-12">
                 <svg
                   style={{
                     width: 36,
@@ -167,8 +196,8 @@ export default async function OGOutput({
                     fill={onBgColor}
                   />
                 </svg>
-                <p tw="font-bold text-4xl mt-0.5 ml-2">{hit.inference_steps}</p>
-              </div>
+                <p tw="font-bold text-4xl mt-0.5 ml-3">{hit.inference_steps}</p>
+              </div> */}
               <div tw="flex items-center">
                 <svg
                   style={{
@@ -188,7 +217,7 @@ export default async function OGOutput({
                     fill={onBgColor}
                   />
                 </svg>
-                <p tw="font-bold text-4xl mt-0.5 ml-2">
+                <p tw="font-bold text-4xl mt-0.5 ml-3">
                   {hit.width}
                   <span tw="mx-1.5 mt-1 text-3xl">×</span>
                   {hit.height}
