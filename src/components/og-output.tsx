@@ -120,7 +120,7 @@ export default async function OGOutput({
               style={{
                 lineHeight: 1,
               }}
-              tw="w-full flex font-medium flex-wrap break-words text-4xl opacity-75 mt-1"
+              tw="w-full flex font-medium flex-wrap break-words text-4xl opacity-75 mt-0"
             >
               {`${hit.prompt_text.slice(0, maxPromptLength)}${
                 hit.prompt_text.length > maxPromptLength ? "..." : ""
