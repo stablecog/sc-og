@@ -14,25 +14,38 @@ export default async function OGGalleryGrid({
   gridCols: number;
   gridRows: number;
 }) {
+  const bgColor = "rgb(18, 18, 23)";
+  const onBgColor = "rgb(220, 220, 234)";
+  const dotColor = "rgba(220, 220, 234, 0.03)";
+  const dotDistance = 42;
+  const dotSizePercent = 5;
+  const bgSecondaryColor = "rgb(28, 28, 35)";
+  const ringWidth = 4;
+
   const imageContainerPadding = 4;
-  const mainContainerPadding = 16;
+  const rootContainerPadding = 16;
+  const imageInnerContainerBorderRadius = 22;
+
   const mainContainer = {
-    width: width - mainContainerPadding * 2,
-    height: height - mainContainerPadding * 2,
+    width: width - rootContainerPadding * 2,
+    height: height - rootContainerPadding * 2,
   };
+
   const imageContainer = {
     width: mainContainer.width / gridCols,
     height: mainContainer.height / gridRows,
   };
+
   const imageInnerContainer = {
     width: imageContainer.width - imageContainerPadding * 2,
     height: imageContainer.height - imageContainerPadding * 2,
   };
+
   const imageInnerContainerMax = Math.max(
     imageInnerContainer.width,
     imageInnerContainer.height
   );
-  const imageInnerContainerBorderRadius = 22;
+
   const imageGrid = images.reduce((acc, item, i) => {
     const row = Math.floor(i / gridCols);
     if (!acc[row]) {
@@ -41,14 +54,6 @@ export default async function OGGalleryGrid({
     acc[row].push(item);
     return acc;
   }, [] as TImage[][]);
-
-  const bgColor = "rgb(18, 18, 23)";
-  const onBgColor = "rgb(220, 220, 234)";
-  const dotColor = "rgba(220, 220, 234, 0.03)";
-  const dotDistance = 42;
-  const dotSizePercent = 5;
-  const bgSecondaryColor = "rgb(28, 28, 35)";
-  const ringWidth = 4;
 
   return (
     <div
