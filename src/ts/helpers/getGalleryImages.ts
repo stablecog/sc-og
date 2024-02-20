@@ -9,6 +9,7 @@ const SEARCH_SCORE_THRESHOLD_DEFAULT = 50;
 const PER_PAGE_DEFAULT = 10;
 const OVERSAMPLING_DEFAULT = 8;
 const SORTS_DEFAULT = "new";
+const OG_SERVICE_TOKEN = process.env.OG_SERVICE_TOKEN;
 
 export const SORTS_DEFAULT_ARRAY = [SORTS_DEFAULT];
 
@@ -63,6 +64,7 @@ export async function getGalleryImages({
   const url = `${goApiUrl}/v1/gallery${queryString}`;
   let headers: Record<string, string> = {
     "Content-Type": "application/json",
+    "X-OG-Service-Token": `${OG_SERVICE_TOKEN}`,
   };
   const res = await fetch(url, {
     headers,
