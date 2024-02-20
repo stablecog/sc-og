@@ -75,14 +75,14 @@ export default async function OGOutput({
         `,
         backgroundSize: `${dotDistance}px ${dotDistance}px`,
       }}
-      tw="flex w-full h-full items-center justify-left"
+      tw="flex w-full h-full items-center justify-center"
     >
       <div
         style={{
           width: mainContainer.width,
           height: mainContainer.height,
         }}
-        tw="flex items-center justify-left"
+        tw="flex items-center justify-center"
       >
         <div
           tw="flex justify-center items-center"
@@ -124,7 +124,7 @@ export default async function OGOutput({
                     lineHeight: 1,
                     maxHeight: 210,
                   }}
-                  tw="w-full flex font-medium flex-wrap break-words text-4xl opacity-75 mt-0"
+                  tw="w-full flex font-medium flex-wrap text-4xl opacity-75 mt-0"
                 >
                   {`${hit.prompt_text.slice(0, maxPromptLength)}${
                     hit.prompt_text.length > maxPromptLength ? "..." : ""
