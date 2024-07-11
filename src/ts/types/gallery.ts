@@ -4,31 +4,15 @@ export type TImage = {
   height: number;
 };
 
-export interface TGalleryGenerationFullOutputPageRes {
-  hits: TGalleryGenerationHit[];
+export interface TGalleryFullOutputPage {
+  outputs: TGalleryFullOutput[];
   next?: string;
+  metadata: {
+    username: string;
+  };
 }
 
-export interface TGalleryGenerationHit {
-  id: string;
-  generation_id: string;
-  image_url: string;
-  upscaled_image_url?: string;
-  created_at: string;
-  updated_at: string;
-  width: number;
-  height: number;
-  inference_steps: number;
-  guidance_scale: number;
-  model_id: string;
-  scheduler_id: string;
-  prompt_text: string;
-  prompt_id: string;
-  negative_prompt_text?: string;
-  negative_prompt_id?: string;
-}
-
-export interface TGenerationFullOutput extends TGenerationOutput {
+export interface TGalleryFullOutput extends TGenerationOutput {
   generation: TGeneration;
 }
 
@@ -52,7 +36,8 @@ export interface TGeneration extends TGenerationBase {
   error?: string;
   id?: string;
   ui_id: string;
-  outputs: TGenerationOutput[];
+  width: number;
+  height: number;
   started_at?: string;
   created_at: string;
   completed_at?: string;
@@ -86,42 +71,4 @@ export interface TGenerationBase {
 export interface TUser {
   email?: string;
   username: string;
-}
-
-export interface TGalleryGenerationFullOutputPageRes {
-  hits: TGalleryGenerationHit[];
-  next?: string;
-}
-export interface TUserProfileGenerationFullOutputPageRes {
-  hits: TGalleryGenerationHit[];
-  next?: string;
-  metadata: {
-    username: string;
-  };
-}
-
-export interface TGalleryGenerationHit {
-  id: string;
-  generation_id: string;
-  image_url: string;
-  upscaled_image_url?: string;
-  created_at: string;
-  updated_at: string;
-  width: number;
-  height: number;
-  inference_steps: number;
-  guidance_scale: number;
-  model_id: string;
-  scheduler_id: string;
-  prompt_text: string;
-  prompt_id: string;
-  negative_prompt_text?: string;
-  negative_prompt_id?: string;
-  is_public: boolean;
-  was_auto_submitted: boolean;
-  user: {
-    username: string;
-  };
-  is_liked?: boolean;
-  like_count: number;
 }

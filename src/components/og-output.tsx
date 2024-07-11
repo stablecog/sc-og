@@ -1,15 +1,15 @@
 import LogoMark from "@/components/logos/LogoMark";
 import { generationModels } from "@/ts/helpers/getGalleryImages";
 import { getImgProxySrc } from "@/ts/helpers/getImgProxySrc";
-import { TGalleryGenerationHit } from "@/ts/types/gallery";
+import { TGalleryFullOutput } from "@/ts/types/gallery";
 
 export default async function OGOutput({
-  hit,
+  output,
   width,
   height,
   username,
 }: {
-  hit: TGalleryGenerationHit;
+  output: TGalleryFullOutput;
   width: number;
   height: number;
   username?: string;
@@ -24,7 +24,7 @@ export default async function OGOutput({
   const ringWidth = 5;
 
   const finalImageUrl = getImgProxySrc({
-    src: hit.image_url,
+    src: output.image_url,
     preset: "768w",
     extention: "png",
   });
@@ -43,7 +43,7 @@ export default async function OGOutput({
   let imageHeight: number;
   let imageContainerWidth: number;
   let imageContainerHeight: number;
-  const imageAspectRatio = hit.width / hit.height;
+  const imageAspectRatio = output.generation.width / output.generation.height;
 
   if (imageAspectRatio >= maxAspectRatio) {
     imageHeight = mainContainer.height;
@@ -126,8 +126,10 @@ export default async function OGOutput({
                   }}
                   tw="w-full flex font-medium flex-wrap text-4xl opacity-75 mt-0"
                 >
-                  {`${hit.prompt_text.slice(0, maxPromptLength)}${
-                    hit.prompt_text.length > maxPromptLength ? "..." : ""
+                  {`${output.generation.prompt.text.slice(0, maxPromptLength)}${
+                    output.generation.prompt.text.length > maxPromptLength
+                      ? "..."
+                      : ""
                   }`}
                 </p>
               </div>
@@ -153,7 +155,7 @@ export default async function OGOutput({
                   />
                 </svg>
                 <p tw="font-bold text-4xl mt-0.5 ml-3">
-                  {generationModels[hit.model_id].shortName}
+                  {generationModels[output.generation.model_id].shortName}
                 </p>
               </div>
               {/* <div tw="flex items-center mr-12">
@@ -218,9 +220,9 @@ export default async function OGOutput({
                   />
                 </svg>
                 <p tw="font-bold text-4xl mt-0.5 ml-3">
-                  {hit.width}
+                  {output.generation.width}
                   <span tw="mx-1.5 mt-1 text-3xl">×</span>
-                  {hit.height}
+                  {output.generation.height}
                 </p>
               </div>
             </div>

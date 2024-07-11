@@ -24,7 +24,6 @@ export default async function OGGenerationModel({
     model.name_in_worker
   )}.jpg`;
 
-  console.log(imageUrl);
   return (
     <div
       style={{

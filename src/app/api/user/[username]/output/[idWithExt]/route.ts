@@ -46,11 +46,11 @@ export async function GET(req: Request) {
   }
   const split = idWithExt.split(".");
   const id = split[0];
-  const { data: hit, error } = await getOutput(id, username);
+  const { data: output, error } = await getOutput(id, username);
   if (error) return new Response(error, { status: 500 });
-  if (!hit) return new Response("Not found", { status: 404 });
+  if (!output) return new Response("Not found", { status: 404 });
   const response = new ImageResponse(
-    await OGOutput({ hit, width, height, username }),
+    await OGOutput({ output, width, height, username }),
     {
       width,
       height,
@@ -77,6 +77,6 @@ export async function GET(req: Request) {
     }
   );
   const end = Date.now();
-  console.log(`-- OG image for "${hit.id}" in: ${end - start}ms --`);
+  console.log(`-- OG image for "${output.id}" in: ${end - start}ms --`);
   return cors(req, response);
 }

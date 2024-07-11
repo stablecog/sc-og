@@ -1,11 +1,8 @@
 import { goApiUrl } from "@/ts/constants/main";
-import {
-  TGalleryGenerationFullOutputPageRes,
-  TGalleryGenerationHit,
-} from "../types/gallery";
+import { TGalleryFullOutput, TGalleryFullOutputPage } from "../types/gallery";
 
 export async function getOutput(id: string, username?: string) {
-  let hit: TGalleryGenerationHit | undefined = undefined;
+  let output: TGalleryFullOutput | undefined = undefined;
   const url = `${goApiUrl}/v1/${
     username ? `profile/${username}/outputs` : `gallery`
   }?output_id=${id}`;
@@ -15,8 +12,8 @@ export async function getOutput(id: string, username?: string) {
     console.log("Response wasn't okay");
     return { error: "Response wasn't okay" };
   }
-  const data: TGalleryGenerationFullOutputPageRes = await res.json();
-  if (!data.hits || !data.hits[0]) return { error: "No data" };
-  hit = data.hits[0];
-  return { data: hit };
+  const data: TGalleryFullOutputPage = await res.json();
+  if (!data.outputs || !data.outputs[0]) return { error: "No data" };
+  output = data.outputs[0];
+  return { data: output };
 }

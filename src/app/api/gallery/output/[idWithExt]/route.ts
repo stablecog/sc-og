@@ -42,34 +42,37 @@ export async function GET(req: Request) {
   }
   const split = idWithExt.split(".");
   const id = split[0];
-  const { data: hit, error } = await getOutput(id);
+  const { data: output, error } = await getOutput(id);
   if (error) return new Response(error, { status: 500 });
-  if (!hit) return new Response("Not found", { status: 404 });
-  const response = new ImageResponse(await OGOutput({ hit, width, height }), {
-    width,
-    height,
-    fonts: [
-      {
-        name: "Avenir Next",
-        data: fontData400,
-        style: "normal",
-        weight: 400,
-      },
-      {
-        name: "Avenir Next",
-        data: fontData500,
-        style: "normal",
-        weight: 500,
-      },
-      {
-        name: "Avenir Next",
-        data: fontData700,
-        style: "normal",
-        weight: 700,
-      },
-    ],
-  });
+  if (!output) return new Response("Not found", { status: 404 });
+  const response = new ImageResponse(
+    await OGOutput({ output, width, height }),
+    {
+      width,
+      height,
+      fonts: [
+        {
+          name: "Avenir Next",
+          data: fontData400,
+          style: "normal",
+          weight: 400,
+        },
+        {
+          name: "Avenir Next",
+          data: fontData500,
+          style: "normal",
+          weight: 500,
+        },
+        {
+          name: "Avenir Next",
+          data: fontData700,
+          style: "normal",
+          weight: 700,
+        },
+      ],
+    }
+  );
   const end = Date.now();
-  console.log(`-- OG image for "${hit.id}" in: ${end - start}ms --`);
+  console.log(`-- OG image for "${output.id}" in: ${end - start}ms --`);
   return cors(req, response);
 }

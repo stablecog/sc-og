@@ -1,8 +1,9 @@
 import { goApiUrl } from "@/ts/constants/main";
 import { TImgProxyPreset, getImgProxySrc } from "@/ts/helpers/getImgProxySrc";
 import {
+  TGalleryFullOutput,
+  TGalleryFullOutputPage,
   TImage,
-  TUserProfileGenerationFullOutputPageRes,
 } from "@/ts/types/gallery";
 
 const SEARCH_SCORE_THRESHOLD_DEFAULT = 50;
@@ -74,13 +75,13 @@ export async function getGalleryImages({
       `Failed to fetch gallery outputs: ${res.status}, ${res.statusText}`
     );
   }
-  const data: TUserProfileGenerationFullOutputPageRes = await res.json();
-  const { hits } = data;
-  const images: TImage[] = hits.map((hit) => {
+  const data: TGalleryFullOutputPage = await res.json();
+  const { outputs } = data;
+  const images: TImage[] = outputs.map((output) => {
     const image: TImage = {
-      url: getImgProxySrc({ src: hit.image_url, preset: imgProxyPreset }),
-      width: hit.width,
-      height: hit.height,
+      url: getImgProxySrc({ src: output.image_url, preset: imgProxyPreset }),
+      width: output.generation.width,
+      height: output.generation.height,
     };
     return image;
   });
@@ -188,6 +189,10 @@ export const generationModels: {
   "4e54440f-ee17-4712-b4b6-0671b94d685d": {
     name: "SSD-1B",
     shortName: "SSD-1B",
+  },
+  "986d447d-c38b-4218-a2c8-6e0b691f47ec": {
+    name: "Stable Diffusion 3",
+    shortName: "Stable D. 3",
   },
 } as const;
 
