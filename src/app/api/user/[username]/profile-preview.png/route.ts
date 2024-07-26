@@ -2,9 +2,6 @@ import { ImageResponse } from "@vercel/og";
 import { NextResponse } from "next/server";
 import cors from "@/ts/constants/cors";
 import OGProfile from "@/components/og-profile";
-import { sharedHeaders } from "@/ts/constants/headers";
-
-export const runtime = "edge";
 
 const width = 1200;
 const height = 630;
@@ -43,7 +40,6 @@ export async function GET(req: Request) {
   const response = new ImageResponse(
     await OGProfile({ width, height, username }),
     {
-      headers: sharedHeaders,
       width,
       height,
       fonts: [
