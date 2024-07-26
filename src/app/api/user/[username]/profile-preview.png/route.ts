@@ -4,6 +4,8 @@ import cors from "@/ts/constants/cors";
 import OGProfile from "@/components/og-profile";
 import { font400, font500, font700 } from "@/ts/constants/fonts";
 
+export const runtime = "edge";
+
 const width = 1200;
 const height = 630;
 

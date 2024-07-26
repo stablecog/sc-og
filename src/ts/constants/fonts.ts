@@ -1,13 +1,11 @@
-import { ogApiUrl } from "@/ts/constants/main";
-
 export const font400 = fetch(
-  `${ogApiUrl}/fonts/avenir-next/avenir-next-400.ttf`
+  new URL("../../../fonts/avenir-next/avenir-next-400.ttf", import.meta.url)
 ).then((res) => res.arrayBuffer());
 
 export const font500 = fetch(
-  `${ogApiUrl}/fonts/avenir-next/avenir-next-500.ttf`
+  new URL("../../../fonts/avenir-next/avenir-next-500.ttf", import.meta.url)
 ).then((res) => res.arrayBuffer());
 
 export const font700 = fetch(
-  `${ogApiUrl}/fonts/avenir-next/avenir-next-700.ttf`
+  new URL("../../../fonts/avenir-next/avenir-next-700.ttf", import.meta.url)
 ).then((res) => res.arrayBuffer());

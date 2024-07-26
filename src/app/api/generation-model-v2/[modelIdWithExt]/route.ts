@@ -5,6 +5,8 @@ import { getGenerationModel } from "@/ts/helpers/getGenerationModel";
 import OGGenerationModel from "@/components/og-generation-model";
 import { font400, font500, font700 } from "@/ts/constants/fonts";
 
+export const runtime = "edge";
+
 const width = 1200;
 const height = 630;
 
