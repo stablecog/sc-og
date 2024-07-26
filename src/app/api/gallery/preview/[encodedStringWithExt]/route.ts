@@ -9,7 +9,7 @@ import {
 import { TImgProxyPreset } from "@/ts/helpers/getImgProxySrc";
 import { base64ToSearchParams } from "@/ts/helpers/base64ToSearchParams";
 import { font400, font500, font700 } from "@/ts/constants/fonts";
-import { userProfilePreview } from "@/ts/constants/main";
+import { userProfilePreviewUrl } from "@/ts/constants/main";
 
 export const runtime = "edge";
 
@@ -106,7 +106,9 @@ export async function GET(req: Request) {
 }
 
 async function defaultResponse(req: Request) {
-  const defaultPreviewImage = await userProfilePreview;
+  const defaultPreviewImage = await fetch(userProfilePreviewUrl).then((res) =>
+    res.arrayBuffer()
+  );
   const res = new Response(defaultPreviewImage, {
     headers: {
       "Content-Type": "image/png",
