@@ -1,4 +1,5 @@
 import LogoHorizontal from "@/components/logos/LogoHorizontal";
+import { ogApiUrl } from "@/ts/constants/main";
 
 export default async function OGProfile({
   width,
@@ -44,7 +45,7 @@ export default async function OGProfile({
         tw="w-full"
         width={1200}
         height={352}
-        src="https://og.stablecog.com/user_profile_preview_base_2.png"
+        src={`${ogApiUrl}/user_profile_preview_base_2.png`}
       />
     </div>
   );

@@ -9,6 +9,7 @@ import {
 import { TImgProxyPreset } from "@/ts/helpers/getImgProxySrc";
 import { base64ToSearchParams } from "@/ts/helpers/base64ToSearchParams";
 import { font400, font500, font700 } from "@/ts/constants/fonts";
+import { ogApiUrl } from "@/ts/constants/main";
 
 const width = 1200;
 const height = 630;
@@ -103,9 +104,9 @@ export async function GET(req: Request) {
 }
 
 async function defaultResponse(req: Request) {
-  const defaultPreviewImage = await fetch(
-    new URL("../../../../../../assets/gallery-v2.png", import.meta.url)
-  ).then((res) => res.arrayBuffer());
+  const defaultPreviewImage = await fetch(`${ogApiUrl}/gallery-v2.png`).then(
+    (res) => res.arrayBuffer()
+  );
   const res = new Response(defaultPreviewImage, {
     headers: {
       "Content-Type": "image/png",
