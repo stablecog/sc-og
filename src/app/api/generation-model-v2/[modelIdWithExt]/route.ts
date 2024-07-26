@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import cors from "@/ts/constants/cors";
 import { getGenerationModel } from "@/ts/helpers/getGenerationModel";
 import OGGenerationModel from "@/components/og-generation-model";
+import { sharedHeaders } from "@/ts/constants/headers";
 
 export const runtime = "edge";
 
@@ -49,6 +50,7 @@ export async function GET(req: Request) {
   const response = new ImageResponse(
     await OGGenerationModel({ model: generationModel, width, height }),
     {
+      headers: sharedHeaders,
       width,
       height,
       fonts: [

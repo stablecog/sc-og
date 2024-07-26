@@ -8,6 +8,7 @@ import {
 } from "@/ts/helpers/getGalleryImages";
 import { TImgProxyPreset } from "@/ts/helpers/getImgProxySrc";
 import { base64ToSearchParams } from "@/ts/helpers/base64ToSearchParams";
+import { sharedHeaders } from "@/ts/constants/headers";
 
 export const runtime = "edge";
 
@@ -88,6 +89,7 @@ export async function GET(req: Request) {
     const response = new ImageResponse(
       await OGGallery({ images, width, height, gridRows, gridCols }),
       {
+        headers: sharedHeaders,
         width,
         height,
         fonts: [

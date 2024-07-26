@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import OGOutput from "@/components/og-output";
 import cors from "@/ts/constants/cors";
 import { getOutput } from "@/ts/helpers/getOutput";
+import { sharedHeaders } from "@/ts/constants/headers";
 
 export const runtime = "edge";
 
@@ -48,6 +49,7 @@ export async function GET(req: Request) {
   const response = new ImageResponse(
     await OGOutput({ output, width, height }),
     {
+      headers: sharedHeaders,
       width,
       height,
       fonts: [
