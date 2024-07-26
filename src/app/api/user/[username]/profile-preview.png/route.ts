@@ -2,28 +2,10 @@ import { ImageResponse } from "@vercel/og";
 import { NextResponse } from "next/server";
 import cors from "@/ts/constants/cors";
 import OGProfile from "@/components/og-profile";
+import { font400, font500, font700 } from "@/ts/constants/fonts";
 
 const width = 1200;
 const height = 630;
-
-const font400 = fetch(
-  new URL(
-    "../../../../../../assets/fonts/avenir-next/avenir-next-400.ttf",
-    import.meta.url
-  )
-).then((res) => res.arrayBuffer());
-const font500 = fetch(
-  new URL(
-    "../../../../../../assets/fonts/avenir-next/avenir-next-500.ttf",
-    import.meta.url
-  )
-).then((res) => res.arrayBuffer());
-const font700 = fetch(
-  new URL(
-    "../../../../../../assets/fonts/avenir-next/avenir-next-700.ttf",
-    import.meta.url
-  )
-).then((res) => res.arrayBuffer());
 
 export async function GET(req: Request) {
   const start = Date.now();
