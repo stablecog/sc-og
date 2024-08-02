@@ -25,7 +25,7 @@ runs:
       with:
         webhook-url: ${{ inputs.webhook-url }}
         embed-color: 15105570
-        embed-title: "${{ inputs.embed-title }}"
+        embed-title: "(sc-og) ${{ inputs.embed-title }}"
         embed-description: "```Deploy Started```"
 
     - uses: imranismail/setup-kustomize@v1
@@ -51,9 +51,9 @@ runs:
       uses: ./.github/actions/discord-webhook
       with:
         webhook-url: ${{ inputs.webhook-url }}
-        embed-title: "${{ inputs.embed-title }}"
+        embed-title: "(sc-og) ${{ inputs.embed-title }}"
         embed-color: 15548997
-        embed-description: "```(sc-og) 🚨 Deploy Failed 🚨```"
+        embed-description: "```🚨 Deploy Failed 🚨```"
 
     - name: Send Discord Webhook
       if: ${{ success() && inputs.embed-title != '' }}

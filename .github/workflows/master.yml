@@ -53,8 +53,8 @@ jobs:
         with:
           webhook-url: ${{ secrets.DISCORD_WEBHOOK }}
           embed-color: 16776960
-          embed-title: "${{ needs.setup_env.outputs.commit_msg }}  •  ${{ needs.setup_env.outputs.short_sha }}"
-          embed-description: "```(sc-og) Build Started```"
+          embed-title: "(sc-og) ${{ needs.setup_env.outputs.commit_msg }}  •  ${{ needs.setup_env.outputs.short_sha }}"
+          embed-description: "```Build Started```"
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
@@ -89,8 +89,8 @@ jobs:
         with:
           webhook-url: ${{ secrets.DISCORD_WEBHOOK }}
           embed-color: 15548997
-          embed-title: "${{ needs.setup_env.outputs.commit_msg }}  •  ${{ needs.setup_env.outputs.short_sha }}"
-          embed-description: "```(sc-og) 🚨 Build FAILED 🚨```"
+          embed-title: "(sc-og) ${{ needs.setup_env.outputs.commit_msg }}  •  ${{ needs.setup_env.outputs.short_sha }}"
+          embed-description: "```🚨 Build FAILED 🚨```"
 
   deploy:
     name: 🚀 Deploy
