@@ -1,6 +1,6 @@
 let lastTimestamp = 0;
 const BATCH_SIZE = 10;
-const FLUSH_INTERVAL = 500;
+const FLUSH_INTERVAL = 250;
 
 const getMonotonicTimestamp = (): string => {
   const now = Date.now() * 1000000; // Convert to nanoseconds
