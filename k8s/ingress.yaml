@@ -13,10 +13,10 @@ metadata:
 spec:
   tls:
     - hosts:
-        - og2.stablecog.com
-      secretName: og2-stablecog-com-secret
+        - og.stablecog.com
+      secretName: og-stablecog-com-secret
   rules:
-    - host: og2.stablecog.com
+    - host: og.stablecog.com
       http:
         paths:
           - path: /
