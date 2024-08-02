@@ -53,7 +53,7 @@ runs:
         webhook-url: ${{ inputs.webhook-url }}
         embed-title: "${{ inputs.embed-title }}"
         embed-color: 15548997
-        embed-description: "```🚨 Deploy Failed 🚨```"
+        embed-description: "```(sc-og) 🚨 Deploy Failed 🚨```"
 
     - name: Send Discord Webhook
       if: ${{ success() && inputs.embed-title != '' }}
@@ -62,4 +62,4 @@ runs:
         webhook-url: ${{ inputs.webhook-url }}
         embed-title: "${{ inputs.embed-title }}"
         embed-color: 5763719
-        embed-description: "```Deployed```"
+        embed-description: "```(sc-og) Deployed```"
