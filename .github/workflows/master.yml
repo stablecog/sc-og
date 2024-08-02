@@ -72,7 +72,7 @@ jobs:
           context: .
           platforms: linux/arm64
           push: true
-          file: ../../Dockerfile
+          file: ./Dockerfile
           tags: stablecog/sc-og:${{ needs.setup_env.outputs.branch_name }}-${{ env.GITHUB_RUN_ID }}
 
       - name: Send Discord Webhook
