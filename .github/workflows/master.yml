@@ -62,6 +62,9 @@ jobs:
 
       - name: Build and push image
         uses: docker/build-push-action@v3
+        env:
+          PUBLIC_SUPABASE_URL: ${{ secrets.PUBLIC_SUPABASE_URL }}
+          SUPABASE_ADMIN_KEY: ${{ secrets.SUPABASE_ADMIN_KEY }}
         with:
           context: .
           platforms: linux/amd64,linux/arm64
