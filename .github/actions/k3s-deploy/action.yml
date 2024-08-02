@@ -33,7 +33,7 @@ runs:
         kustomize-version: "3.5.4"
 
     - name: Set image
-      working-directory: ./k8s/prod
+      working-directory: ./k8s
       shell: bash
       run: |
         kustomize edit set image replaceme=${{ inputs.image }}
