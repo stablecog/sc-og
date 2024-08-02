@@ -62,4 +62,4 @@ runs:
         webhook-url: ${{ inputs.webhook-url }}
         embed-title: "${{ inputs.embed-title }}"
         embed-color: 5763719
-        embed-description: "``` Deployed ```"
+        embed-description: "```Deployed```"
