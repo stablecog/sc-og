@@ -4,6 +4,7 @@ import OGOutput from "@/components/og-output";
 import cors from "@/ts/constants/cors";
 import { getOutput } from "@/ts/helpers/getOutput";
 import { font400, font500, font700 } from "@/ts/constants/fonts";
+import { logger } from "@/ts/constants/logger";
 
 export const runtime = "edge";
 
@@ -55,6 +56,6 @@ export async function GET(req: Request) {
     }
   );
   const end = Date.now();
-  console.log(`-- OG image for "${output.id}" in: ${end - start}ms --`);
+  logger.info(`OG image for "${output.id}" in: ${end - start}ms`);
   return cors(req, response);
 }

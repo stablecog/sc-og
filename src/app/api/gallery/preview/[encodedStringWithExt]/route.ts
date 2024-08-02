@@ -10,6 +10,7 @@ import { TImgProxyPreset } from "@/ts/helpers/getImgProxySrc";
 import { base64ToSearchParams } from "@/ts/helpers/base64ToSearchParams";
 import { font400, font500, font700 } from "@/ts/constants/fonts";
 import { userProfilePreviewUrl } from "@/ts/constants/main";
+import { logger } from "@/ts/constants/logger";
 
 export const runtime = "edge";
 
@@ -96,8 +97,8 @@ export async function GET(req: Request) {
       }
     );
     const end = Date.now();
-    console.log(
-      `-- OG image for search query "${searchString}" in: ${end - start}ms --`
+    logger.info(
+      `OG image for search query "${searchString}" in: ${end - start}ms`
     );
     return cors(req, response);
   } catch {

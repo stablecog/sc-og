@@ -4,6 +4,7 @@ import cors from "@/ts/constants/cors";
 import { getGenerationModel } from "@/ts/helpers/getGenerationModel";
 import OGGenerationModel from "@/components/og-generation-model";
 import { font400, font500, font700 } from "@/ts/constants/fonts";
+import { logger } from "@/ts/constants/logger";
 
 export const runtime = "edge";
 
@@ -56,8 +57,8 @@ export async function GET(req: Request) {
     }
   );
   const end = Date.now();
-  console.log(
-    `-- OG image for model "${generationModel.id}" in: ${end - start}ms --`
+  logger.info(
+    `OG image for model "${generationModel.id}" in: ${end - start}ms`
   );
   return cors(req, response);
 }

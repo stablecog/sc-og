@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import cors from "@/ts/constants/cors";
 import OGProfile from "@/components/og-profile";
 import { font400, font500, font700 } from "@/ts/constants/fonts";
+import { logger } from "@/ts/constants/logger";
 
 export const runtime = "edge";
 
@@ -49,6 +50,6 @@ export async function GET(req: Request) {
     }
   );
   const end = Date.now();
-  console.log(`-- OG image for "@${username}" in: ${end - start}ms --`);
+  logger.info(`OG image for "@${username}" in: ${end - start}ms`);
   return cors(req, response);
 }
