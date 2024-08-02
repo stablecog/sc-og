@@ -7,7 +7,6 @@ export async function getOutput(id: string, username?: string) {
   const url = `${goApiUrl}/v1/${
     username ? `profile/${username}/outputs` : `gallery`
   }?output_id=${id}`;
-  logger.info(`Url is: ${url}`);
   const res = await fetch(url);
   if (!res.ok) {
     logger.error("Response wasn't okay");

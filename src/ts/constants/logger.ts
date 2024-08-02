@@ -1,32 +1,6 @@
-interface LokiLogEntry {
-  streams: {
-    stream: {
-      [key: string]: string;
-    };
-    values: [string, string][];
-  }[];
-}
-
-interface LoggerConfig {
-  lokiUrl: string;
-  lokiUsername: string;
-  lokiPassword: string;
-  labels: { [key: string]: string };
-  batchSize: number;
-  flushInterval: number;
-}
-
-interface Logger {
-  info: (message: any) => void;
-  error: (message: any) => void;
-  flush: () => Promise<void>;
-}
-
-interface LogBatch {
-  [key: string]: [string, string][];
-}
-
 let lastTimestamp = 0;
+const BATCH_SIZE = 10;
+const FLUSH_INTERVAL = 500;
 
 const getMonotonicTimestamp = (): string => {
   const now = Date.now() * 1000000; // Convert to nanoseconds
@@ -81,8 +55,8 @@ const createLogger = (): Logger => {
       application: "sc-og",
       logger: "root",
     },
-    batchSize: 10,
-    flushInterval: 500,
+    batchSize: BATCH_SIZE,
+    flushInterval: FLUSH_INTERVAL,
   };
 
   if (!config.lokiUrl) {
@@ -154,3 +128,31 @@ const createLogger = (): Logger => {
 };
 
 export const logger = createLogger();
+
+interface LokiLogEntry {
+  streams: {
+    stream: {
+      [key: string]: string;
+    };
+    values: [string, string][];
+  }[];
+}
+
+interface LoggerConfig {
+  lokiUrl: string;
+  lokiUsername: string;
+  lokiPassword: string;
+  labels: { [key: string]: string };
+  batchSize: number;
+  flushInterval: number;
+}
+
+interface Logger {
+  info: (message: any) => void;
+  error: (message: any) => void;
+  flush: () => Promise<void>;
+}
+
+interface LogBatch {
+  [key: string]: [string, string][];
+}
