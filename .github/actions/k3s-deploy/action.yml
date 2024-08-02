@@ -54,3 +54,12 @@ runs:
         embed-title: "${{ inputs.embed-title }}"
         embed-color: 15548997
         embed-description: "```🚨 Deploy Failed 🚨```"
+
+    - name: Send Discord Webhook
+      if: ${{ success() && inputs.embed-title != '' }}
+      uses: ./.github/actions/discord-webhook
+      with:
+        webhook-url: ${{ inputs.webhook-url }}
+        embed-title: "${{ inputs.embed-title }}"
+        embed-color: 5763719
+        embed-description: "``` Deployed ```"
