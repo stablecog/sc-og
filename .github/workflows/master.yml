@@ -71,6 +71,9 @@ jobs:
           push: true
           file: ./Dockerfile
           tags: stablecog/sc-og:${{ needs.setup_env.outputs.branch_name }}-${{ env.GITHUB_RUN_ID }}
+          build-args: |
+            PUBLIC_SUPABASE_URL=${{ secrets.PUBLIC_SUPABASE_URL }}
+            SUPABASE_ADMIN_KEY=${{ secrets.SUPABASE_ADMIN_KEY }}
 
       - name: Send Discord Webhook
         if: failure()

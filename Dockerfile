@@ -13,6 +13,11 @@ RUN npm install
 # Copy the rest of your Next.js project
 COPY . .
 
+ARG PUBLIC_SUPABASE_URL
+ARG SUPABASE_ADMIN_KEY
+ENV PUBLIC_SUPABASE_URL=$PUBLIC_SUPABASE_URL
+ENV SUPABASE_ADMIN_KEY=$SUPABASE_ADMIN_KEY
+
 # Build the Next.js application
 RUN npm run build
 
