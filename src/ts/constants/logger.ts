@@ -12,11 +12,18 @@ interface LoggerConfig {
   lokiUsername: string;
   lokiPassword: string;
   labels: { [key: string]: string };
+  batchSize: number;
+  flushInterval: number;
 }
 
 interface Logger {
   info: (message: any) => void;
   error: (message: any) => void;
+  flush: () => Promise<void>;
+}
+
+interface LogBatch {
+  [key: string]: [string, string][];
 }
 
 let lastTimestamp = 0;
@@ -29,19 +36,15 @@ const getMonotonicTimestamp = (): string => {
 
 const sendToLoki = async (
   config: LoggerConfig,
-  level: string,
-  message: string
-) => {
-  if (!config.lokiUrl) return;
+  batch: LogBatch
+): Promise<void> => {
+  if (!config.lokiUrl || Object.keys(batch).length === 0) return;
 
-  const timestamp = getMonotonicTimestamp();
   const logEntry: LokiLogEntry = {
-    streams: [
-      {
-        stream: { level, ...config.labels },
-        values: [[timestamp, message]],
-      },
-    ],
+    streams: Object.entries(batch).map(([key, values]) => ({
+      stream: { level: key, ...config.labels },
+      values,
+    })),
   };
 
   const headers: HeadersInit = {
@@ -61,10 +64,11 @@ const sendToLoki = async (
     });
 
     if (!response.ok) {
-      console.error(`Failed to send log to Loki: ${response.statusText}`);
+      throw new Error(`Failed to send logs to Loki: ${response.statusText}`);
     }
   } catch (error) {
-    console.error("Error sending log to Loki:", error);
+    console.error("Error sending logs to Loki:", error);
+    throw error; // Re-throw to allow caller to handle
   }
 };
 
@@ -77,23 +81,75 @@ const createLogger = (): Logger => {
       application: "sc-og",
       logger: "root",
     },
+    batchSize: 10,
+    flushInterval: 500,
   };
 
   if (!config.lokiUrl) {
     console.warn("LOKI_URL is not set. Logs will only be output to console.");
   }
 
-  const logAndSend = (level: "info" | "error", message: any) => {
+  let batch: LogBatch = {};
+  let flushPromise: Promise<void> | null = null;
+  let timeout: NodeJS.Timeout | null = null;
+
+  const flush = async (): Promise<void> => {
+    if (flushPromise) return flushPromise;
+
+    const batchToSend = batch;
+    batch = {};
+    if (timeout) {
+      clearTimeout(timeout);
+      timeout = null;
+    }
+
+    flushPromise = sendToLoki(config, batchToSend).finally(() => {
+      flushPromise = null;
+    });
+
+    return flushPromise;
+  };
+
+  const scheduleFlush = () => {
+    if (!timeout) {
+      timeout = setTimeout(() => flush(), config.flushInterval);
+    }
+  };
+
+  const addToBatch = (level: string, message: string) => {
+    if (!batch[level]) {
+      batch[level] = [];
+    }
+    batch[level].push([getMonotonicTimestamp(), message]);
+
+    if (batch[level].length >= config.batchSize) {
+      flush();
+    } else {
+      scheduleFlush();
+    }
+  };
+
+  const logAndBatch = (level: "info" | "error", message: any) => {
     const logMessage =
       typeof message === "string" ? message : JSON.stringify(message);
     const consoleMethod = level === "info" ? console.log : console.error;
     consoleMethod(logMessage);
-    sendToLoki(config, level, logMessage);
+    addToBatch(level, logMessage);
   };
 
+  // Handle application shutdown
+  if (typeof process !== "undefined" && process.on) {
+    ["SIGINT", "SIGTERM", "beforeExit"].forEach((signal) => {
+      process.on(signal, () => {
+        flush().finally(() => process.exit());
+      });
+    });
+  }
+
   return {
-    info: (message: any) => logAndSend("info", message),
-    error: (message: any) => logAndSend("error", message),
+    info: (message: any) => logAndBatch("info", message),
+    error: (message: any) => logAndBatch("error", message),
+    flush,
   };
 };
 
