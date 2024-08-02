@@ -4,17 +4,17 @@ inputs:
   image:
     description: Image to deploy
     required: true
+  embed-title:
+    description: Title of the embed
+    required: true
   kube_config:
     description: base64 encoded kube config
-    required: true
-  service:
-    description: Name of the service
     required: true
   webhook-url:
     description: Discord Webhook URL
     required: true
-  embed-title:
-    description: Title of the embed
+  service:
+    description: Name of the service
     required: true
 runs:
   using: composite

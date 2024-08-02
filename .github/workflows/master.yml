@@ -102,4 +102,4 @@ jobs:
           embed-title: "${{ needs.setup_env.outputs.commit_msg }}  •  ${{ needs.setup_env.outputs.short_sha }}"
           webhook-url: ${{ secrets.DISCORD_WEBHOOK }}
           kube_config: ${{ secrets.K3S_KUBE_CONFIG }}
-          env: prod
+          service: sc-og

@@ -11,7 +11,7 @@ inputs:
     description: Description of the embed
     required: true
   webhook-url:
-    description: Webhook URL for prod
+    description: Webhook URL
     required: true
 runs:
   using: composite
