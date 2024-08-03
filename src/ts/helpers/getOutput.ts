@@ -9,7 +9,7 @@ export async function getOutput(id: string, username?: string) {
   }?output_id=${id}`;
   const res = await fetch(url);
   if (!res.ok) {
-    logger.error("Response wasn't okay");
+    logger.error("🔴 Response wasn't okay");
     return { error: "Response wasn't okay" };
   }
   const data: TGalleryFullOutputPage = await res.json();

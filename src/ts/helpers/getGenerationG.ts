@@ -3,7 +3,7 @@ import { supabaseAdmin } from "../constants/supabaseAdmin";
 
 export async function getGenerationG(id: string) {
   if (!supabaseAdmin) {
-    logger.error("No Supabase instance found");
+    logger.error("🔴 No Supabase instance found");
     return { data: null, error: "No Supabase instance found" };
   }
   const { data, error } = await supabaseAdmin
@@ -26,7 +26,7 @@ export async function getGenerationG(id: string) {
     )
     .filter("id", "eq", id)
     .maybeSingle();
-  if (error) logger.error(error);
+  if (error) logger.error(`🔴 ${error.message}`);
   if (data) {
     const generation: TDBGenerationG = {
       id: data.id as string,

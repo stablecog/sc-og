@@ -58,7 +58,7 @@ export async function GET(req: Request) {
   );
   const end = Date.now();
   logger.info(
-    `OG image for model "${generationModel.id}" in: ${end - start}ms`
+    `✅ OG image for model "${generationModel.id}" in: ${end - start}ms`
   );
   return cors(req, response);
 }

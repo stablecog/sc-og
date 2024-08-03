@@ -98,7 +98,7 @@ export async function GET(req: Request) {
     );
     const end = Date.now();
     logger.info(
-      `OG image for search query "${searchString}" in: ${end - start}ms`
+      `✅ OG image for search query "${searchString}" in: ${end - start}ms`
     );
     return cors(req, response);
   } catch {
