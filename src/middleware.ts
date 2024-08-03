@@ -6,12 +6,14 @@ export function middleware(request: NextRequest) {
   const userAgent = headers.get("user-agent") || "Unknown";
   const urlObject = new URL(url);
   const relativeUrl = urlObject.pathname + urlObject.search;
+  const referer = headers.get("referer") || "Unknown";
   if (!userAgent.startsWith("kube-probe")) {
     logger.info(
       asTable([
         ["Request Method", method],
         ["Relative URL", relativeUrl],
         ["User Agent", userAgent],
+        ["Referer", referer],
       ])
     );
   }
