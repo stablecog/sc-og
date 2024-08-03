@@ -136,13 +136,25 @@ export function asTable(data: TableRow[]): string {
   const maxValueLength = 90;
   const maxPropLength = Math.max(...data.map(([prop]) => prop.length));
   let str = "";
+  let longestLineLength = 0;
   for (let i = 0; i < data.length; i++) {
     const isOverflowing = data[i][1].length > maxValueLength;
-    str += `${data[i][0].padEnd(maxPropLength, " ")} | ${data[i][1].slice(
-      0,
-      maxValueLength
-    )}${isOverflowing ? "..." : ""}\n`;
+    const propValue = isOverflowing
+      ? data[i][1].slice(0, maxValueLength)
+      : data[i][1];
+    str += `${data[i][0].padEnd(maxPropLength, " ")} | ${propValue}${
+      isOverflowing ? "..." : ""
+    }\n`;
+    const lineLength =
+      maxPropLength +
+      3 +
+      (isOverflowing ? maxValueLength + 3 : propValue.length);
+    if (lineLength > longestLineLength) {
+      longestLineLength = lineLength;
+    }
   }
+  const divider = "-".repeat(longestLineLength);
+  str = `${divider}\n${str}${divider}`;
   return str;
 }
 
