@@ -1,6 +1,6 @@
 type TableRow = [string, string];
 
-export function asTable(data: TableRow[], width: number = 90): string {
+export function asTable(data: TableRow[], width: number = 100): string {
   if (data.length === 0) return "";
 
   const maxPropLength = Math.max(...data.map(([prop]) => prop.length));
