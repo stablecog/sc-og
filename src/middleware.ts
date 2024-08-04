@@ -1,4 +1,5 @@
-import { asTable, logger } from "@/ts/constants/logger";
+import { logger } from "@/ts/constants/logger";
+import { asTable } from "@/ts/helpers/asTable";
 import { NextRequest, NextResponse } from "next/server";
 
 export function middleware(request: NextRequest) {

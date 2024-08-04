@@ -129,35 +129,6 @@ const createLogger = (): Logger => {
 
 export const logger = createLogger();
 
-type TableRow = [string, string];
-
-export function asTable(data: TableRow[]): string {
-  if (data.length === 0) return "";
-  const maxValueLength = 90;
-  const maxPropLength = Math.max(...data.map(([prop]) => prop.length));
-  let str = "";
-  let longestLineLength = 0;
-  for (let i = 0; i < data.length; i++) {
-    const isOverflowing = data[i][1].length > maxValueLength;
-    const propValue = isOverflowing
-      ? data[i][1].slice(0, maxValueLength)
-      : data[i][1];
-    str += `${data[i][0].padEnd(maxPropLength, " ")} | ${propValue}${
-      isOverflowing ? "..." : ""
-    }\n`;
-    const lineLength =
-      maxPropLength +
-      3 +
-      (isOverflowing ? maxValueLength + 3 : propValue.length);
-    if (lineLength > longestLineLength) {
-      longestLineLength = lineLength;
-    }
-  }
-  const divider = "-".repeat(longestLineLength);
-  str = `${divider}\n${str}${divider}`;
-  return str;
-}
-
 interface LokiLogEntry {
   streams: {
     stream: {
