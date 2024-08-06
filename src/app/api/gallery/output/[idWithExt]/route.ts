@@ -56,6 +56,6 @@ export async function GET(req: Request) {
     }
   );
   const end = Date.now();
-  logger.info(`✅ OG for "${output.id}" in: ${end - start}ms`);
+  logger.info(`✅ OG for "${output.id}" - ${end - start}ms`);
   return cors(req, response);
 }
