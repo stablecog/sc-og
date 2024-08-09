@@ -136,6 +136,10 @@ export const generationModels: {
     active?: boolean;
   };
 } = {
+  "0a99668b-45bd-4f7e-aa9c-f9aaa41ef13b": {
+    name: "FLUX.1",
+    shortName: "FLUX.1",
+  },
   "b6c1372f-31a7-457c-907c-d292a6ffef97": {
     name: "Luna Diffusion",
     shortName: "Luna D.",
