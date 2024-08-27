@@ -1,16 +1,16 @@
-import { ImageResponse } from "next/og";
 import OGGallery from "@/components/og-gallery";
 import cors from "@/ts/constants/cors";
+import { font400, font500, font700 } from "@/ts/constants/fonts";
+import { logger } from "@/ts/constants/logger";
+import { galleryPreviewUrl } from "@/ts/constants/main";
+import { base64ToSearchParams } from "@/ts/helpers/base64ToSearchParams";
 import {
   SORTS_DEFAULT_ARRAY,
   getGalleryImages,
   getGalleryLikeParamsFromSearchParams,
 } from "@/ts/helpers/getGalleryImages";
 import { TImgProxyPreset } from "@/ts/helpers/getImgProxySrc";
-import { base64ToSearchParams } from "@/ts/helpers/base64ToSearchParams";
-import { font400, font500, font700 } from "@/ts/constants/fonts";
-import { userProfilePreviewUrl } from "@/ts/constants/main";
-import { logger } from "@/ts/constants/logger";
+import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
 
@@ -105,7 +105,7 @@ export async function GET(req: Request) {
 }
 
 async function defaultResponse(req: Request) {
-  const defaultPreviewImage = await fetch(userProfilePreviewUrl).then((res) =>
+  const defaultPreviewImage = await fetch(galleryPreviewUrl).then((res) =>
     res.arrayBuffer()
   );
   const res = new Response(defaultPreviewImage, {
