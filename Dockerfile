@@ -12,7 +12,9 @@ RUN case "$TARGETPLATFORM" in \
     esac \
  && rustup target add "$(cat /rust-target)" \
  && apt-get update \
- && apt-get install -y --no-install-recommends gcc-aarch64-linux-gnu gcc-x86-64-linux-gnu \
+ && apt-get install -y --no-install-recommends \
+      gcc-aarch64-linux-gnu libc6-dev-arm64-cross \
+      gcc-x86-64-linux-gnu libc6-dev-amd64-cross \
  && rm -rf /var/lib/apt/lists/*
 
 ENV CARGO_TARGET_X86_64_UNKNOWN_LINUX_GNU_LINKER=x86_64-linux-gnu-gcc \
