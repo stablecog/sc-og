@@ -1,28 +1,39 @@
-# Use Node.js LTS (Long Term Support) as the base image
-FROM node:lts
+FROM rust:1-trixie AS builder
 
-# Set the working directory in the container
 WORKDIR /app
 
-# Copy package.json and package-lock.json (if available)
-COPY package*.json ./
+# Cache the dependency build as its own layer.
+COPY Cargo.toml Cargo.lock ./
+RUN mkdir src \
+ && echo 'fn main() {}' > src/main.rs \
+ && cargo build --release \
+ && rm -rf src
 
-# Install dependencies
-RUN npm install
+# Fonts and images are embedded into the binary via include_bytes!.
+COPY assets assets
+COPY public public
+COPY src src
+RUN touch src/main.rs \
+ && cargo build --release \
+ && cp target/release/sc-og /sc-og
 
-# Copy the rest of your Next.js project
-COPY . .
+FROM debian:trixie-slim
 
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends ca-certificates \
+ && rm -rf /var/lib/apt/lists/*
+
+COPY --from=builder /sc-og /usr/local/bin/sc-og
+
+# Kept for parity with the previous (Next.js) image, which baked these in at
+# build time. The k8s deployment can also provide them at runtime instead.
 ARG PUBLIC_SUPABASE_URL
 ARG SUPABASE_ADMIN_KEY
-ENV PUBLIC_SUPABASE_URL=$PUBLIC_SUPABASE_URL
-ENV SUPABASE_ADMIN_KEY=$SUPABASE_ADMIN_KEY
+ENV PUBLIC_SUPABASE_URL=$PUBLIC_SUPABASE_URL \
+    SUPABASE_ADMIN_KEY=$SUPABASE_ADMIN_KEY
 
-# Build the Next.js application
-RUN npm run build
+USER 65534:65534
 
-# Expose the port the app runs on
 EXPOSE 3000
 
-# Start the application
-CMD ["npm", "start"]
+CMD ["sc-og"]
