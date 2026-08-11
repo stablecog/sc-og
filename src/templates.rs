@@ -237,7 +237,9 @@ pub fn og_output(
 pub const GALLERY_GRID_COLS: usize = 5;
 pub const GALLERY_GRID_ROWS: usize = 2;
 
-pub fn og_gallery(images: &[GalleryImage]) -> String {
+/// `resolved` holds the image URLs whose bytes were successfully fetched;
+/// cells whose image failed to fetch render as an empty frame instead.
+pub fn og_gallery(images: &[GalleryImage], resolved: &std::collections::HashSet<String>) -> String {
     let dots = dot_background();
     let ring_width = 4.0;
     let image_container_padding = 4.0;
@@ -274,9 +276,14 @@ pub fn og_gallery(images: &[GalleryImage]) -> String {
             } else {
                 (inner_max, inner_max / aspect)
             };
-            let url = esc(&image.url);
+            let img_tag = if resolved.contains(&image.url) {
+                let url = esc(&image.url);
+                format!(r#"<img src="{url}" width="{img_w}" height="{img_h}"/>"#)
+            } else {
+                String::new()
+            };
             cells.push_str(&format!(
-                r#"<div tw="flex justify-center items-center relative" style="width: {cell_w}px; height: {cell_h}px"><div tw="flex justify-center items-center overflow-hidden relative" style="width: {inner_w}px; height: {inner_h}px; background: {BG_SECONDARY_COLOR}; border-radius: {inner_border_radius}px; border: {ring_width}px solid {BG_SECONDARY_COLOR}"><img src="{url}" width="{img_w}" height="{img_h}"/></div></div>"#
+                r#"<div tw="flex justify-center items-center relative" style="width: {cell_w}px; height: {cell_h}px"><div tw="flex justify-center items-center overflow-hidden relative" style="width: {inner_w}px; height: {inner_h}px; background: {BG_SECONDARY_COLOR}; border-radius: {inner_border_radius}px; border: {ring_width}px solid {BG_SECONDARY_COLOR}">{img_tag}</div></div>"#
             ));
         }
         rows_html.push_str(&format!(r#"<div tw="w-full flex">{cells}</div>"#));

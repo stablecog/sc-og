@@ -15,7 +15,7 @@ use axum::{
     routing::get,
     Json, Router,
 };
-use futures::future::try_join_all;
+use futures::future::join_all;
 use takumi::prelude::ImageSource;
 use tower_http::cors::{AllowHeaders, Any, CorsLayer};
 
@@ -257,21 +257,27 @@ async fn gallery_preview(
     };
 
     // The last grid cell is the logo, so only the first N-1 images are drawn.
-    let fetched = try_join_all(
+    // A single failed image fetch doesn't sink the grid: the cell renders
+    // empty, like Satori did when one of its image fetches failed.
+    let fetched = join_all(
         images[..num_images - 1]
             .iter()
             .map(|image| fetch_image_pair(&state, image.url.clone())),
     )
     .await;
-    let sources = match fetched {
-        Ok(sources) => sources,
-        Err(err) => {
-            state.logger.error(format!("🔴 {err}"));
-            return default_gallery_response();
+    let mut sources = Vec::new();
+    let mut resolved = std::collections::HashSet::new();
+    for result in fetched {
+        match result {
+            Ok((url, source)) => {
+                resolved.insert(url.clone());
+                sources.push((url, source));
+            }
+            Err(err) => state.logger.error(format!("🔴 {err}")),
         }
-    };
+    }
 
-    let html = templates::og_gallery(&images);
+    let html = templates::og_gallery(&images, &resolved);
     match render_blocking(&state, html, sources).await {
         Ok(png) => {
             state.logger.info(format!(
